@@ -4,19 +4,15 @@ var http = require('http').Server(app)
 var pem = require('pem')
 var winston = require('winston')
 const port = process.env.PORT
-
+const eval = require('../eval')
 
 var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.on('compile', function(data) {
-    console.log(data)
-
-    setInterval(() => {
-      socket.emit('compile', { ok: true })      
-    }, 1000);
+  socket.on('compile', function({userID, problemID, code}) {
+    eval.compile({userID, problemID, code})
   });
 
   socket.on('disconnect', function(){
