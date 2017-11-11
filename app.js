@@ -44,6 +44,9 @@ const authorizeMiddleware = (req, res, next) => {
 }
 const viewAuthorizeMiddleware = (req, res, next) => {
   if (!req.user) return res.redirect('/login')
+  res.locals.user = req.user;
+  console.log(req.user);
+  console.log(res.locals);
   next()
 }
 var app = express()
