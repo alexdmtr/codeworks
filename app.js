@@ -106,6 +106,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', {layout: false})
 })
+app.get('/landing', (req, res) => {
+  res.render('landing')
+})
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
   res.render('home')
 })
