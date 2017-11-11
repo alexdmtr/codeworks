@@ -107,7 +107,7 @@ app.get('/register', (req, res) => {
   res.render('register', {layout: false})
 })
 app.get('/signout', (req, res) => {
-  res.cookie('access_token', null, { expires: Date.now().getTime()-1000 })
+  res.clearCookie('access_token')
   res.redirect('/landing')
 })
 app.get('/landing', (req, res) => {
