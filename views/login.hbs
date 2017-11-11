@@ -11,9 +11,10 @@
     <div class="login-page">
         <div class="form">
             <form class="login-form" action="/login" method="POST">
-                <input type="text" placeholder="username" />
-                <input type="password" placeholder="password" />
-                <input type="submit" value="login"></input>
+                <input type="text" placeholder="username" class="text"/>
+                <input type="password" placeholder="password" class="text"/>
+                <p class="error"></p>
+                <input type="submit" value="login" class="text"></input>
                 <p class="message">Not registered?
                     <a href="/register">Create an account</a>
                 </p>
