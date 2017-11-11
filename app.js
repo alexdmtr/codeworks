@@ -84,8 +84,17 @@ var db = require('./db');
 //   .put(authorizeMiddleware, usersRouter.putUser)
 //   .delete(authorizeMiddleware, usersRouter.deleteUser)
 //   .get(authorizeMiddleware, usersRouter.getUser)
-app.use('/api', apiRouter)
+app.use('/api', apiRouter);
 
+var rootRouter = express.Router();
+var problemsRouter = require('./routes/problems')
+
+rootRouter.route('/problems')
+  .get(problemsRouter.getProblems);
+rootRouter.route('/problems/:id')
+  .get(problemsRouter.getProblem)
+  
+app.use('/', rootRouter);
 app.get('/login', (req, res) => {
   res.render('login')
 })
