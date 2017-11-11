@@ -14,7 +14,9 @@ io.on('connection', function(socket){
   socket.on('compile', function(data) {
     console.log(data)
 
-    socket.emit('compile', { ok: true })
+    setInterval(() => {
+      socket.emit('compile', { ok: true })      
+    }, 1000);
   });
 
   socket.on('disconnect', function(){
