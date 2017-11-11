@@ -3,12 +3,12 @@ require('dotenv').config()
 let envVars = [
   // "DB_HOST",
   // "DB_NAME",
-  // "DB_DIALECT", // 'postgres' 
+  // "DB_DIALECT", // 'postgres'
   // "DB_USERNAME",
   "JWT_SECRET",
   // "ROOT_USERNAME",
   // "ROOT_PASSWORD",
-] 
+]
 /* Optional:
   "DB_PASSWORD"
 */
@@ -114,7 +114,7 @@ app.get('/signout', (req, res) => {
   res.redirect('/landing')
 })
 app.get('/landing', (req, res) => {
-  res.render('landing')
+  res.render('landing', { layout: false })
 })
 
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
