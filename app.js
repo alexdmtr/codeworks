@@ -100,6 +100,9 @@ app.use('/', rootRouter);
 app.get('/login', (req, res) => {
   res.render('login', {layout: false})
 })
+app.get('/register', (req, res) => {
+  res.render('register', {layout: false})
+})
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
   res.render('home')
 })
