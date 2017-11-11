@@ -93,12 +93,9 @@ rootRouter.route('/problems')
   .get(problemsRouter.getProblems);
 rootRouter.route('/problems/:id')
   .get(problemsRouter.getProblem)
-<<<<<<< HEAD
   .post(problemsRouter.postProblem)
-=======
 rootRouter.route('/sandbox')
   .get(problemsRouter.getSandbox)
->>>>>>> 826271fb9959867ee187dd69ca70c15f0f38e416
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
