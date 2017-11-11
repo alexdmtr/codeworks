@@ -93,7 +93,7 @@ rootRouter.route('/problems')
   .get(problemsRouter.getProblems);
 rootRouter.route('/problems/:id')
   .get(problemsRouter.getProblem)
-  
+
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
   res.render('login')
