@@ -18,7 +18,8 @@ exports.postAuth = async (req, res) => {
       const token = jwt.sign({
         username: user.username,
         name: user.name,
-        id: user.key
+        id: user.key,
+        email: user.email
       }, process.env.JWT_SECRET)
 
       const d = new Date()
