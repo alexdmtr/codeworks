@@ -44,6 +44,9 @@ const authorizeMiddleware = (req, res, next) => {
 }
 const viewAuthorizeMiddleware = (req, res, next) => {
   if (!req.user) return res.redirect('/login')
+  res.locals.user = req.user;
+  console.log(req.user);
+  console.log(res.locals);
   next()
 }
 var app = express()
@@ -97,7 +100,7 @@ rootRouter.route('/problems/:id')
   .get(viewAuthorizeMiddleware, problemsRouter.getProblem)
   .post(viewAuthorizeMiddleware, problemsRouter.postProblem)
 rootRouter.route('/sandbox')
-  .get(problemsRouter.getSandbox)
+  .get(viewAuthorizeMiddleware, problemsRouter.getSandbox)
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
