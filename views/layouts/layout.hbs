@@ -40,7 +40,7 @@
 
 <body class="theme-red">
     <!-- Page Loader -->
-    <div class="page-loader-wrapper">
+    {{!-- <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
                 <div class="spinner-layer pl-red">
@@ -54,7 +54,7 @@
             </div>
             <p>Please wait...</p>
         </div>
-    </div>
+    </div> --}}
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
@@ -98,20 +98,22 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">NAVIGATION</li>
-                    <li class="active">
+                    {{!-- <li class="active"> --}}
+                    {{!-- TODO: implement active class --}}
+                    <li>
                         <a href="/">
                             <i class="material-icons">home</i>
                             <span>My Submisions</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/typography.html">
+                        <a href="/problems">
                             <i class="material-icons">text_fields</i>
                             <span>Problems</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/helper-classes.html">
+                        <a href="/sandbox">
                             <i class="material-icons">layers</i>
                             <span>Sandbox</span>
                         </a>
