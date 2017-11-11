@@ -100,7 +100,7 @@ rootRouter.route('/problems/:id')
   .get(viewAuthorizeMiddleware, problemsRouter.getProblem)
   .post(viewAuthorizeMiddleware, problemsRouter.postProblem)
 rootRouter.route('/sandbox')
-  .get(problemsRouter.getSandbox)
+  .get(viewAuthorizeMiddleware, problemsRouter.getSandbox)
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
