@@ -1,5 +1,4 @@
-
-var User = require('../models').models.user
+var db = require('../db')
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcrypt')
 
@@ -9,17 +8,10 @@ exports.postAuth = async (req, res) => {
 
   let { username, password } = req.body
   try {
-    const query = {
-      where: {
-        $or: [{ username }, { email: username }],
-      }
-    };
+   
+    const user = await login({username, password})
 
-    const user = await User.findOne(query)
-
-    const passwordOK = await bcrypt.compare(password, user.password)
-
-    if (!passwordOK)
+    if (!user)
       return res.status(401).json({ message: 'Authentication failed' })
 
     function sendToken() {

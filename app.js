@@ -93,6 +93,7 @@ rootRouter.route('/problems')
   .get(problemsRouter.getProblems);
 rootRouter.route('/problems/:id')
   .get(problemsRouter.getProblem)
+  .post(problemsRouter.postProblem)
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
