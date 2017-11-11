@@ -29,3 +29,7 @@ exports.postProblem = async (req, res) => {
 
   res.render('problems/problem', { problem })
 }
+
+exports.getSandbox = async (req, res) => {
+  res.render('sandbox')
+}

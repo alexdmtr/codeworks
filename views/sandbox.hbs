@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/codemirror/theme/material.css">
+<script src="/codemirror/lib/codemirror.js"></script>
+<script src="/codemirror/brackets/matchbrackets.js"></script>
+<script src="/codemirror/mode/clike.js"></script>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box bg-pink hover-expand-effect">
+        <div class="icon">
+            <i class="material-icons">playlist_add_check</i>
+        </div>
+        <div class="content">
+            <div class="text">RUN</div>
+            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>CODE
+                            <>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <form>
+                    <textarea id="code" name="code"></textarea>
+                </form>
+
+                <script>
+                    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                        lineNumbers: true,
+                        matchBrackets: true,
+                        theme: "material",
+                        mode: "text/x-scala"
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="header">
+                <h2>INPUT</h2>
+            </div>
+            <div class="body">
+                <form>
+                    <textarea id="input" name="code"></textarea>
+                </form>
+
+                <script>
+                    var inputEditor = CodeMirror.fromTextArea(document.getElementById("input"), {
+                        theme: "white",
+                        mode: "text"
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
