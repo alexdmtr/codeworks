@@ -37,11 +37,11 @@ var jwtMiddleware = expressJwt({
   },
 })
 const authorizeMiddleware = (req, res, next) => {
-  if (!req.user) return res.sendStatus(401)
+  // if (!req.user) return res.sendStatus(401)
   next()
 }
 const viewAuthorizeMiddleware = (req, res, next) => {
-  if (!req.user) return res.redirect('/login')
+  // if (!req.user) return res.redirect('/login')
   next()
 }
 var app = express()
