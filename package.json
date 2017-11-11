@@ -1,0 +1,50 @@
+{
+  "name": "roadmap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "express-jwt": "^5.1.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^4.1.0",
+    "gulp-nodemon": "^2.2.1",
+    "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.4",
+    "mariadb": "0.0.2-security",
+    "mocha": "^3.2.0",
+    "morgan": "^1.8.1",
+    "mysql": "^2.15.0",
+    "open": "0.0.5",
+    "pem": "^1.9.4",
+    "pg": "^6.1.4",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.2",
+    "serial-mocha": "0.0.4",
+    "supertest": "^3.0.0",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "pem": "^1.9.4"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "start": "gulp --silent",
+    "seed": "gulp seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-dmtr/roadmap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex-dmtr/roadmap/issues"
+  },
+  "homepage": "https://github.com/alex-dmtr/roadmap#readme"
+}
