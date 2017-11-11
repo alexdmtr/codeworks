@@ -7,21 +7,24 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-function validate({username, email, password, password2}) {
+function validate({username, email, password, password2, name}) {
   if (password != password2)
     return "Passwords do not match"
   if (!validateEmail(email))
     return "Not a valid email address"
+  if (!name)
+    return "Name cannot be empty"
   if (username.length < 4) return "Username must be at least 4 characaters long"  
   if (password.length < 4) return "Password must be at least 4 characters long"  
 }
-function signup() {
+function register() {
   let username = $("#username").val()
   let email = $("#email").val()
+  let name = $("#name").val()
   let password = $("#password").val()
-  let password2 = $("#password2").val()
+  let password2 = $("#repeat_password").val()
 
-  let err = validate({username, email, password, password2});
+  let err = validate({username, email, password, password2, name});
   if (err) {
     $("#error").text(err);
     $("#error").show()
@@ -30,7 +33,7 @@ function signup() {
   $.ajax({
     method: 'POST',
     url: '/api/users',
-    data: { username, password, email},
+    data: { username, name, password, email},
     success: function() {
       window.location.replace("/")
     },

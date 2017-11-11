@@ -7,7 +7,7 @@ exports.postUsers = async (req, res) => {
     res.status(201).json(user)
   }
   catch (err) {
-    consle.error(err)
+    console.error(err)
     res.status(400)
   }
 }

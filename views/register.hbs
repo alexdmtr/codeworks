@@ -10,11 +10,12 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <form action="/register" method="POST">
-                <input type="text" placeholder="name" name="username" class="text"/>
-                <input type="password" placeholder="password" name="password" class="text"/>
-                <input type="password" placeholder="repeat password" name="repeat_password" class="text"/>
-                <input type="text" placeholder="email address" name="email" class="text"/>
+            <form action="/register" method="POST" onsubmit="event.preventDefault(); register()">
+                <input type="text" placeholder="Username" name="username" id="username" class="text"/>
+                <input type="text" placeholder="Full name" name="name" id="name" class="text"/>
+                <input type="password" placeholder="Password" name="password" id="password" class="text"/>
+                <input type="password" placeholder="Repeat password" name="repeat_password" id="repeat_password" class="text"/>
+                <input type="text" placeholder="Email address" name="email" id="email" class="text"/>
                 <p id="error"></p>
                 <input type="submit" class="submit" value="create"></input>
                 <p class="message">Already registered?
@@ -27,7 +28,7 @@
 
     <script src="/js/index.js"></script>
 
-    <script>
+    {{!-- <script>
         $(function () {
             $("form[name='registration']").validate({
                 rules: {
@@ -54,7 +55,8 @@
                 }
             });
         });
-    </script>
+    </script> --}}
+    <script src="/js/register.js"></script>
 </body>
 
 </html>

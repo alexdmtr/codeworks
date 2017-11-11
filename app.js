@@ -23,10 +23,12 @@ var expressJwt = require('express-jwt')
 var morgan = require('morgan')
 var winston = require('winston')
 var jwt = require('jsonwebtoken')
+var cookieParser = require('cookie-parser')
 var jwtMiddleware = expressJwt({
   secret: process.env.JWT_SECRET,
   credentialsRequired: false,
   getToken: function (req) {
+    // console.log(req.cookies)
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
       return req.headers.authorization.split(' ')[1];
     }
@@ -45,7 +47,7 @@ const viewAuthorizeMiddleware = (req, res, next) => {
   next()
 }
 var app = express()
-
+app.use(cookieParser())
 app.use(morgan('dev'))
 
 app.use(bodyParser.urlencoded({

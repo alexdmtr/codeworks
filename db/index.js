@@ -1,6 +1,7 @@
 var admin = require("firebase-admin");
 var bcrypt = require('bcrypt')
 var serviceAccount = require("../secret/serviceAccountKey.json");
+const saltRounds = 10;
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -72,7 +73,7 @@ const hashPassword = async (user) => {
 }
 
 async function register({ email, username, name, password }) {
-  if (getUser(username))
+  if (await getUser(username))
     throw new Error("Username already used");
 
   let user = {email, username, name, password};
