@@ -9,7 +9,7 @@ exports.postAuth = async (req, res) => {
   let { username, password } = req.body
   try {
    
-    const user = await login({username, password})
+    const user = await db.utils.login({username, password})
 
     if (!user)
       return res.status(401).json({ message: 'Authentication failed' })
