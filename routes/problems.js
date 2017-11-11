@@ -40,5 +40,5 @@ exports.postProblem = async (req, res) => {
 }
 
 exports.getSandbox = async (req, res) => {
-  res.render('sandbox')
+  res.render('sandbox', )
 }
