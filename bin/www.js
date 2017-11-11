@@ -5,13 +5,14 @@ var pem = require('pem')
 var winston = require('winston')
 const port = process.env.PORT
 const eval = require('../eval')
-
+const db = require('../db')
 var io = require('socket.io')(http);
 
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.on('compile', function({userID, problemID, code}) {
+  socket.on('save', function({userID, problemID, code}) {
+    // db.utils.saveProblemCode()
     eval.compile({userID, problemID, code})
   });
 

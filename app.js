@@ -37,11 +37,11 @@ var jwtMiddleware = expressJwt({
   },
 })
 const authorizeMiddleware = (req, res, next) => {
-  // if (!req.user) return res.sendStatus(401)
+  if (!req.user) return res.sendStatus(401)
   next()
 }
 const viewAuthorizeMiddleware = (req, res, next) => {
-  // if (!req.user) return res.redirect('/login')
+  if (!req.user) return res.redirect('/login')
   next()
 }
 var app = express()
@@ -70,15 +70,15 @@ app.use(jwtMiddleware)
 
 var apiRouter = express.Router()
 var db = require('./db');
-// var authRouter = require('./routes/auth')
-// var usersRouter = require('./routes/users')
+var authRouter = require('./routes/auth')
+var usersRouter = require('./routes/users')
 
-// apiRouter.route('/auth')
-  // .post(authRouter.postAuth)
+apiRouter.route('/auth')
+  .post(authRouter.postAuth)
 
 
-// apiRouter.route('/users')
-  // .post(usersRouter.postUsers)
+apiRouter.route('/users')
+  .post(usersRouter.postUsers)
 
 // apiRouter.route('/users/:userId')
 //   .put(authorizeMiddleware, usersRouter.putUser)
@@ -90,10 +90,10 @@ var rootRouter = express.Router();
 var problemsRouter = require('./routes/problems')
 
 rootRouter.route('/problems')
-  .get(problemsRouter.getProblems);
+  .get(viewAuthorizeMiddleware, problemsRouter.getProblems);
 rootRouter.route('/problems/:id')
-  .get(problemsRouter.getProblem)
-  .post(problemsRouter.postProblem)
+  .get(viewAuthorizeMiddleware, problemsRouter.getProblem)
+  .post(viewAuthorizeMiddleware, problemsRouter.postProblem)
 rootRouter.route('/sandbox')
   .get(problemsRouter.getSandbox)
 
@@ -109,13 +109,13 @@ app.get('/', viewAuthorizeMiddleware, (req, res) => {
 })
 
 
-app.use(function (err, req, res, next) {
-  if (err.name === 'UnauthorizedError') {
-    //   res.status(401).send('invalid token...')
-    console.log("Unauthorized!")
-    res.redirect('/login');
-  } else
-    next(err)
-});
+// app.use(function (err, req, res, next) {
+//   if (err.name === 'UnauthorizedError') {
+//     //   res.status(401).send('invalid token...')
+//     // console.log("Unauthorized!")
+//     // res.redirect('/login');
+//   } else
+//     next(err)
+// });
 
 module.exports = app
