@@ -1,6 +1,21 @@
 {{ problem.title }}
 {{ problem.text }}
 
+<div class="row clearfix">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="header">
+                            <div class="row clearfix">
+                                <div class="col-xs-12 col-sm-6">
+                                    <h2>{{ problem.title }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        {{ problem.text }}
+                    </div>
+                </div>
+            </div>
+
 <form action="fileupload" method="post" enctype="multipart/form-data">
   <input type="file" name="file">
   <br>
