@@ -98,7 +98,7 @@ rootRouter.route('/sandbox')
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
-  res.render('login')
+  res.render('login', {layout: false})
 })
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
   res.render('home')

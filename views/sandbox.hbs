@@ -3,17 +3,20 @@
 <script src="/codemirror/lib/codemirror.js"></script>
 <script src="/codemirror/brackets/matchbrackets.js"></script>
 <script src="/codemirror/mode/clike.js"></script>
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box bg-pink hover-expand-effect">
-        <div class="icon">
-            <i class="material-icons">playlist_add_check</i>
-        </div>
-        <div class="content">
-            <div class="text">RUN</div>
-            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-pink hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">RUN</div>
+                <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="row clearfix">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
@@ -28,7 +31,15 @@
             </div>
             <div class="body">
                 <form>
-                    <textarea id="code" name="code"></textarea>
+                    <textarea id="code" name="code">
+public class Main
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello World!");
+    }
+}
+</textarea>
                 </form>
 
                 <script>
@@ -42,8 +53,6 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row clearfix">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
             <div class="header">
@@ -51,7 +60,7 @@
             </div>
             <div class="body">
                 <form>
-                    <textarea id="input" name="code"></textarea>
+                    <textarea id="input" name="input"></textarea>
                 </form>
 
                 <script>
@@ -64,3 +73,35 @@
         </div>
     </div>
 </div>
+
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h2>Output
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                Sample output
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.onbeforeunload = function() {
+    sessionStorage.setItem(code, $('#code').val());
+    sessionStorage.setItem(input, $('#input').val());
+}
+
+window.onload = function() {
+    var code = sessionStorage.getItem(code);
+    if (code !== null) $('#code').val(code);
+    var input = sessionStorage.getItem(input);
+    if (input !== null) $('#input').val(input);
+}
+</script>
