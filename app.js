@@ -69,6 +69,7 @@ app.set('view engine', 'hbs')
 app.use(jwtMiddleware)
 
 var apiRouter = express.Router()
+var db = require('./db');
 // var authRouter = require('./routes/auth')
 // var usersRouter = require('./routes/users')
 
