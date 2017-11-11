@@ -15,7 +15,7 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-.form input {
+.text {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -40,7 +40,7 @@
   transition: all 0.3 ease;
   cursor: pointer;
 }
-.submitn:hover,.sumbit:active,.submit:focus {
+.submit:hover, .sumbit:active,.submit:focus {
   background: #F44333;
 }
 .form .message {
