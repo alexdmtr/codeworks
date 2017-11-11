@@ -26,6 +26,11 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+.error {
+  font-family: "Roboto", sans-serif;
+  color: #F44336;
+  text-align: left;
+}
 .submit {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
