@@ -93,6 +93,7 @@ rootRouter.route('/problems')
   .get(problemsRouter.getProblems);
 rootRouter.route('/problems/:id')
   .get(problemsRouter.getProblem)
+  .post(problemsRouter.postProblem)
 rootRouter.route('/sandbox')
   .get(problemsRouter.getSandbox)
 

@@ -1,8 +1,9 @@
-var User = require('../models').models.user
+// var User = require('../models').models.user
+var db =require('../db')
 
 exports.postUsers = async (req, res) => {
   try {
-    const user = await User.create(req.body)
+    const user = await db.utils.register(req.body)
     res.status(201).json(user)
   }
   catch (err) {
