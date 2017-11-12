@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>CodeWorks</title>
+    <title>CodeWorks | {{pageName}}</title>
     <!-- Favicon-->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -62,21 +62,22 @@
     {{!-- <div class="overlay"></div> --}}
     <!-- #END# Overlay For Sidebars -->
     <!-- Top Bar -->
-    {{!-- <nav class="navbar">
+    <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="/">
-                    <img src="/images/logo.png" alt="" height="30px" class="logoImg">
+                    CodeWorks
+                    {{!-- <img src="/images/logoBig.png" alt="" height="100px" class="logoImg"> --}}
                 </a>
             </div>
         </div>
-    </nav> --}}
+    </nav>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar" style="top: 0; min-height: 100%">
+        <aside id="leftsidebar" class="sidebar" >
             <!-- User Info -->
             <div class="user-info">
                 <div class="info-container">
@@ -101,7 +102,7 @@
             </div>
             <!-- #User Info -->
             <!-- Menu -->
-            <div class="menu">
+            <div class="menu" style="background-image:url('/images/logoGray.png'); background-size: 320px 180px; background-repeat: no-repeat; background-position: 0% 60%">
                 <ul class="list">
                     <li class="header">NAVIGATION</li>
                     {{!-- <li class="active"> --}}
@@ -112,13 +113,13 @@
                             <span>My Submisions</span>
                         </a>
                     </li>
-                    <li>
+                    <li {{#if page.problems}} class='active' {{/if}}>
                         <a href="/problems">
                             <i class="material-icons">text_fields</i>
                             <span>Problems</span>
                         </a>
                     </li>
-                    <li>
+                    <li {{#if page.sandbox}} class='active' {{/if}}>
                         <a href="/sandbox">
                             <i class="material-icons">layers</i>
                             <span>Sandbox</span>
@@ -139,7 +140,7 @@
         </aside>
         <!-- #END# Left Sidebar -->
     </section>
-    <section class="content" style=" position: absolute; top: -75px; width: 78.5%">
+    <section class="content" >
         <div class="container-fluid">
             {{{ body }}}
         </div>
