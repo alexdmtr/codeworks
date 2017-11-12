@@ -16,7 +16,7 @@
                         </h3>
                     </div>
                     <div class="runBtn text" style="cursor: pointer" onclick="runCode()" id="run-text">RUN</div>
-                    <div class="runBtn debugBtn text" style="cursor: pointer" onclick="runCode()" id="run-debug">DEBUG</div>
+                    {{!-- <div class="runBtn debugBtn text" style="cursor: pointer" onclick="runCode()" id="run-debug">DEBUG</div> --}}
                 </div>
             </div>
             <div class="body" style="background-color: #263238">
@@ -72,7 +72,6 @@
                 </div>
             </div>
             <pre class="body" style="background-color: #263238; color: white; min-height: 200px; max-height:200px;" id="output">
-
             </pre>
         </div>
     </div>
@@ -88,7 +87,7 @@
                         </h3>
                     </div>
                     <div class="runBtn text" onclick="runCode()" style="cursor:pointer" id="run-text">RUN</div>
-                    <div class="runBtn debugBtn text" onclick="runCode()" style="cursor:pointer" id="run-debug">DEBUG</div>
+                    {{!-- <div class="runBtn debugBtn text" onclick="runCode()" style="cursor:pointer" id="run-debug">DEBUG</div> --}}
                 </div>
             </div>
             <div class="body" style="background-color: #263238">
@@ -167,36 +166,3 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/sandbox.js" defer></script>
-
- <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
-
-<!-- Line Chart -->
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header">
-                            <h2>LINE CHART</h2>
-                            <ul class="header-dropdown m-r--5">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
-                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div id="line_chart" class="graph"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- #END# Line Chart -->
-
-    <!-- Jquery Core Js -->
-    <script src="/plugins/jquery/jquery.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="/js/pages/charts/morris.js"></script>
