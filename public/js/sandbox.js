@@ -40,7 +40,13 @@ function onAuth() {
 }
 
 function submitResult(result) {
-  alert('Solution is good: '+ result);
+  if (result) {
+    $("#okdone").show();
+    $("#okwrong").hide();
+  } else {
+    $("#okdone").hide();
+    $("#okwrong").show();
+  }
 }
 var _buffer = "";
 function runStdout(data) {

@@ -27,12 +27,12 @@
         {{!-- <div class="header-dropdown m-r-5">
           <a href="/problems/{{this.key}}" class="btn btn-light"> View </a>
         </div> --}}
-        {{#if this.status.new}}
-        <div class="statusLabel text" id="status_label" style="background-color: #F44336">NEW</div>
+        {{#if this.status.solved}}
+        <div class="statusLabel text" id="status_label" style="background-color: #37C10A">SOLVED</div>
         {{else if this.status.attempted}}
         <div class="statusLabel text" id="status_label" style="background-color: #3846F2">ATTEMPTED</div>
         {{else}}
-        <div class="statusLabel text" id="status_label" style="background-color: #37C10A">SOLVED</div>
+        <div class="statusLabel text" id="status_label" style="background-color: #F44336">NEW</div>
         {{/if}}
       </div>
       <div class="body">

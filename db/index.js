@@ -126,6 +126,22 @@ async function getAttemptedProblems(userID) {
 
   return cnt;
 }
+async function isProblemCorrect({userID, problemID}) {
+  var tree = await getList('/submissions')
+
+  if (tree[problemID][userID])
+    if(tree[problemID][userID].solved)
+      return true;
+  return false;
+}
+
+async function isProblemAttempted({userID, problemID}) {
+  var tree = await getList('/submissions')
+
+  if (tree[problemID][userID])
+      return true;
+  return false;
+}
 async function getCorrectProblems(userID) {
   var tree = await getList('/submissions')
   var cnt = 0;
@@ -146,6 +162,7 @@ async function saveCorrectProblem({userID, problemID}) {
 db.utils = {
   getList, getObj, saveProblemCode, login, register, getUser,
   getProblemCode, getProblemData,
-  getTotalProblems, getCorrectProblems, getAttemptedProblems, saveCorrectProblem
+  getTotalProblems, getCorrectProblems, getAttemptedProblems, saveCorrectProblem,
+  isProblemAttempted, isProblemCorrect
 }
 module.exports = db;
