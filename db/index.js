@@ -137,9 +137,15 @@ async function getCorrectProblems(userID) {
 
   return cnt;
 }
+
+async function saveCorrectProblem({userID, problemID}) {
+  await db.ref('/submissions/'+problemID+'/'+userID).update({
+    solved: true
+  })
+}
 db.utils = {
   getList, getObj, saveProblemCode, login, register, getUser,
   getProblemCode, getProblemData,
-  getTotalProblems, getCorrectProblems, getAttemptedProblems
+  getTotalProblems, getCorrectProblems, getAttemptedProblems, saveCorrectProblem
 }
 module.exports = db;
