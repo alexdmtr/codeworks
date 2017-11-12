@@ -114,7 +114,9 @@ app.get('/signout', (req, res) => {
   res.redirect('/login')
 })
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
-  res.render('home')
+  res.render('home', {
+    pageName: 'Home'
+  })
 })
 
 
