@@ -10,6 +10,22 @@ exports.getProblems = async (req, res) => {
   const search = req.query.search;
   var problems = await db.utils.getList('/problems')
 
+  problems.forEach(async problem => {
+    problem.status = {};
+    if (await db.utils.isProblemCorrect({
+      userID: req.user.id,
+      problemID: problem.key
+    })) {
+      problem.status.solved = true;
+    }
+    else if (await db.utils.isProblemAttempted({
+      userID: req.user.id,
+      problemID: problem.key}))
+      {
+        problem.status.attempted = true;
+      }
+  })
+
   // if (search)
   //   problems = problems.filter(problem => {
   //     let fields = ['title', 'text'];
