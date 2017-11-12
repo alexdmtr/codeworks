@@ -65,6 +65,7 @@ function saveCode() {
   __delaying = false;
   socket.emit('save', { 
     code: editor.getValue(),
+    args: input.getValue(),
     sandbox: true
   })
 }
@@ -73,6 +74,7 @@ function runCode() {
   $("#run-text").text("RUNNING")
   socket.emit('run', {
     code: editor.getValue(),
+    args: input.getValue(),
     sandbox: true
   })
 }

@@ -40,15 +40,14 @@ exports.postProblem = async (req, res) => {
 }
 
 exports.getSandbox = async (req, res) => {
-  var code = await db.utils.getProblemCode({
+  var data = await db.utils.getProblemCode({
     userID: req.user.id,
     problem: 'sandbox',
   })
 
-  console.log(code)
-
   res.render('sandbox', {
     jwt: req.cookies['access_token'],
-    code: code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}"
+    code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
+    args: data.args
   })
 }
