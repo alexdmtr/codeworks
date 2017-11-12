@@ -6,7 +6,11 @@ var fs = require('fs');
 exports.getProblems = async (req, res) => {
 
   var context = {
-    problems: await db.utils.getList('/problems')
+    problems: await db.utils.getList('/problems'),
+    page: {
+      problems: true
+    },
+    pageName: 'Problems'
   }
 
   res.render('problems/problems', context)
@@ -30,7 +34,11 @@ exports.getProblem = async (req, res) => {
     code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
     args: data.args,
     problem: problemData,
-    sandbox: false
+    sandbox: false,
+    page: {
+      problems: true
+    },
+    pageName: problemData.title
   })
 }
 
@@ -67,6 +75,10 @@ exports.getSandbox = async (req, res) => {
     code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
     args: data.args,
     sandbox: true,
-    problem: {}
+    problem: {},
+    page: {
+      sandbox: true
+    },
+    pageName: 'Sandbox'
   })
 }

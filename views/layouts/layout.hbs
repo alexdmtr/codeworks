@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>CodeWorks</title>
+    <title>CodeWorks | {{pageName}}</title>
     <!-- Favicon-->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -107,19 +107,19 @@
                     <li class="header">NAVIGATION</li>
                     {{!-- <li class="active"> --}}
                     {{!-- TODO: implement active class --}}
-                    <li class="active">
+                    <li>
                         <a href="/">
                             <i class="material-icons">home</i>
                             <span>My Submisions</span>
                         </a>
                     </li>
-                    <li>
+                    <li {{#if page.problems}} class='active' {{/if}}>
                         <a href="/problems">
                             <i class="material-icons">text_fields</i>
                             <span>Problems</span>
                         </a>
                     </li>
-                    <li>
+                    <li {{#if page.sandbox}} class='active' {{/if}}>
                         <a href="/sandbox">
                             <i class="material-icons">layers</i>
                             <span>Sandbox</span>
