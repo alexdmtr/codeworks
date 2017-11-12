@@ -22,6 +22,7 @@ function main() {
       })
   });
 
+  setInterval(pushBuffer, 1000 / 30); // 30fps
 }
 
 function onAuth() {
@@ -37,15 +38,24 @@ function onAuth() {
   socket.on('run:done', runDone);
 }
 
+var _buffer = "";
 function runStdout(data) {
   // $("#output").text($("#output").val()+data)
-  $("#output").append(data)
+  // $("#output").append(data)
+  _buffer += data;
 }
 
 function runStderr(data) {
   // $("#output").text($("#output").val()+data)  
-  $("#output").append(data)
-  
+  // $("#output").append(data)
+  _buffer += data;
+}
+
+function pushBuffer() {
+  var data = _buffer;
+  _buffer = "";
+  if (data)
+    $("#output").append(data);
 }
 
 function runDone(data) {
@@ -68,13 +78,12 @@ function runDone(data) {
     $("#output-error").text("");
 
   if (kill)
-    message += `Program terminated after ${seconds}s`;
-  message += `
+    _buffer += `Program terminated after ${seconds}s`;
+  _buffer += `
 ===========================
 Program finished with exit code ${data.code}
 Execution time: ${seconds}s`;
 
-  $("#output").text($("#output").text()+message);
   
   $("#run-text").text("RUN")
 }
