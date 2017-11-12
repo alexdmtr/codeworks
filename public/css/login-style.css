@@ -117,14 +117,13 @@ input {
 .information {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   background-color: #E9E9E9;
-  max-width:1530px;
-  margin:auto;
+  max-width: 1010px;
+  margin: auto;
   margin-top: 50px;
   margin-bottom: 30px;
   display:block
 }
 .infotext {
-  text-align:justify;
-  padding-left: 27px;
+  text-align: center;
   padding-top: 15px;
 }
