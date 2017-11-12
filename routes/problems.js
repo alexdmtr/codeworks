@@ -4,17 +4,17 @@ var path = require('path');
 var fs = require('fs');
 
 exports.getProblems = async (req, res) => {
-  
+
   var context = {
     problems: await db.utils.getList('/problems')
   }
-  
+
   res.render('problems/problems', context)
 }
 
 exports.getProblem = async (req, res) => {
   var problemID = req.params.id
-  
+
   var problem = await db.utils.getObj("/problems/"+problemID)
 
   res.render('problems/problem', { problem })
@@ -49,6 +49,6 @@ exports.getSandbox = async (req, res) => {
 
   res.render('sandbox', {
     jwt: req.cookies['access_token'],
-    code: code || "//// Write some code here!"
+    code: code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}"
   })
 }
