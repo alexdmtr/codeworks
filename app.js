@@ -111,12 +111,8 @@ app.get('/register', (req, res) => {
 })
 app.get('/signout', (req, res) => {
   res.clearCookie('access_token')
-  res.redirect('/landing')
+  res.redirect('/login')
 })
-app.get('/landing', (req, res) => {
-  res.render('landing', { layout: false })
-})
-
 app.get('/', viewAuthorizeMiddleware, (req, res) => {
   res.render('home')
 })
