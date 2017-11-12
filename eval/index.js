@@ -8,7 +8,7 @@ const spawn = require('child_process').spawn;
 
 const SUBMISSIONS_DIR = path.resolve(__dirname, '../submissions')
 
-exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit }) => {
+async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }) {
   const problem_dir = path.resolve(SUBMISSIONS_DIR, problemID);
   const user_dir = path.resolve(problem_dir, userID);
 
@@ -41,16 +41,6 @@ exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit
 
     return { stdout, stderr }
   }
-
-  // async function java(args) {
-  //   const command = 'java -classpath . Main ' + args;
-  //   console.log(command);
-  //   const { stdout, stderr } = await exec(command, {
-  //     cwd: user_dir
-  //   });
-
-  //   return { stdout, stderr }
-  // }
 
   try {
     await javac();
@@ -115,4 +105,31 @@ exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit
   // var ms = endTime - startTime;
 
   // return { stdout, stderr, miliseconds: ms };
+}
+
+async function check({ userID, problemID, code, input, output, onResult}) {
+  var buffer = "";
+  
+  run({
+    userID,
+    problemID,
+    code,
+    args: input,
+    onStdout: function(data) {
+      buffer += data.toString();
+    },
+    onStderr: function(data) {
+      buffer += data.toString()
+    },
+    onExit: function() {
+      // console.log(output);
+      var ok = buffer.trim() === output.toString().trim();
+
+      onResult(ok);
+    }
+  })
+}
+
+module.exports = {
+  run, check
 }

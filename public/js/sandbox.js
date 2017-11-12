@@ -36,8 +36,12 @@ function onAuth() {
   socket.on('run:stdout', runStdout);
   socket.on('run:stderr', runStderr);
   socket.on('run:done', runDone);
+  socket.on('submit:result', submitResult);
 }
 
+function submitResult(result) {
+  alert('Solution is good: '+ result);
+}
 var _buffer = "";
 function runStdout(data) {
   // $("#output").text($("#output").val()+data)
