@@ -113,9 +113,21 @@ app.get('/signout', (req, res) => {
   res.clearCookie('access_token')
   res.redirect('/login')
 })
-app.get('/', viewAuthorizeMiddleware, (req, res) => {
+app.get('/', viewAuthorizeMiddleware, async (req, res) => {
+
+  var obj = {
+    numberOfProblems: await db.utils.getTotalProblems(),
+    attemptedProblems: await db.utils.getAttemptedProblems(req.user.id),
+    correctProblems: await db.utils.getCorrectProblems(req.user.id)
+  };
+
+  obj.leftProblems = obj.numberOfProblems - obj.correctProblems;
   res.render('home', {
-    pageName: 'Home'
+    pageName: 'Home',
+    page: {
+      home: true
+    },
+    ...obj
   })
 })
 
