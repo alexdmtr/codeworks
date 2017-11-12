@@ -29,10 +29,23 @@ function onAuth() {
     // console.log("Saved!");
     delaySaveCode();
   })  
+  socket.on('run:done', runDone);
 
 
 }
 
+function runDone(data) {
+  var compileError = data.compileError;
+  var stdout = data.stdout;
+  var stderr = data.stderr;
+
+  var message = stdout;
+  if (compileError)
+    message = compileError.stderr;
+
+  $("#output").html(message);
+  $("#run-text").text("RUN")
+}
 var __delaying = false;
 function delaySaveCode() {
   if (!__delaying) {
@@ -50,7 +63,7 @@ function saveCode() {
 }
 
 function runCode() {
-  console.log('run!');
+  $("#run-text").text("RUNNING")
   socket.emit('run', {
     code: editor.getValue(),
     sandbox: true
