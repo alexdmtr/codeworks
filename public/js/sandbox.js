@@ -54,9 +54,12 @@ function runStderr(data) {
 function pushBuffer() {
   var data = _buffer;
   _buffer = "";
-  if (data)
-    $("#output").append(data);
-}
+  if (data) {
+    var $output = $("#output")
+    $output.append(data);
+    $output.get(0).scrollTop = $output.get(0).scrollHeight;
+  }
+  }
 
 function runDone(data) {
   var compileError = data.compilerError;
