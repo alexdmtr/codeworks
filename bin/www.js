@@ -37,7 +37,7 @@ io.on('connection', socketioJwt.authorize({
     }
 
     console.log(code, args, problemName)
-    const { runtimeError, compileError, stdout, stderr} = await eval.run({
+    const { runtimeError, compileError, stdout, stderr, miliseconds } = await eval.run({
       userID: user.id,
       problemID: problemName,
       code,
@@ -45,7 +45,7 @@ io.on('connection', socketioJwt.authorize({
     })
 
     socket.emit('run:done', {
-      runtimeError, compileError, stdout, stderr
+      runtimeError, compileError, stdout, stderr, miliseconds
     });
   })
 

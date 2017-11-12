@@ -60,9 +60,15 @@ exports.run = async ({ userID, problemID, code, args }) => {
     }
   }
 
+  var ms = endTime - startTime;
+
+
   var stdout, stderr;
+  var startTime, endTime;
+  startTime = (+ new Date());  
   try {
     const data = await java(args);
+    endTime = (+ new Date());    
     stdout = data.stdout;
     stderr = data.stderr;    
   } catch (e) {
@@ -71,5 +77,7 @@ exports.run = async ({ userID, problemID, code, args }) => {
     }
   }
 
-  return { stdout, stderr };
+  var ms = endTime - startTime;
+
+  return { stdout, stderr, miliseconds: ms };
 }

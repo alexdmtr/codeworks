@@ -40,6 +40,8 @@ function runDone(data) {
   var runtimeError = data.runtimeError;
   var stdout = data.stdout;
   var stderr = data.stderr;
+  var miliseconds = data.miliseconds;
+  var seconds = (miliseconds / 1000.).toFixed(4);
 
   var message = stdout;
   if (compileError) {
@@ -50,7 +52,12 @@ function runDone(data) {
     message = runtimeError.stderr;
   } else
     $("#output-error").text("");
+
+  message += `
+===========================
+Execution time: ${seconds}s`;
   $("#output").html(message);
+  
   $("#run-text").text("RUN")
 }
 var __delaying = false;
