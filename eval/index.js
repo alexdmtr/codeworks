@@ -56,7 +56,7 @@ exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit
     await javac();
   }
   catch (e) {
-    onExit({
+    return onExit({
       compilerError: e
     })
   }
@@ -88,6 +88,7 @@ exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit
       onStderr(data);
   });
   program.on('exit', code => {
+    console.log('exiting')
     endTime = (+ new Date());
     var ms = endTime - startTime;
 

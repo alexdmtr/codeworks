@@ -59,7 +59,7 @@ function pushBuffer() {
 }
 
 function runDone(data) {
-  var compileError = data.compileError;
+  var compileError = data.compilerError;
   // var runtimeError = data.runtimeError;
   // var stdout = data.stdout;
   // var stderr = data.stderr;
@@ -67,10 +67,10 @@ function runDone(data) {
   var seconds = (miliseconds / 1000.).toFixed(4);
   var kill = data.kill;
 
-  var message = "";
   if (compileError) {
     $("#output-error").text("Compile error");
-    message = compileError.stderr;
+    $("#output").text("")
+    _buffer = compileError.stderr;
   // } else if (runtimeError) {
   //   $("#output-error").text("Runtime error");
   //   message = runtimeError.stderr;
@@ -79,6 +79,7 @@ function runDone(data) {
 
   if (kill)
     _buffer += `Program terminated after ${seconds}s`;
+  if (!compileError)
   _buffer += `
 ===========================
 Program finished with exit code ${data.code}
