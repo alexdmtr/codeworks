@@ -8,6 +8,8 @@ function getCookie(name) {
 }
 
 function main() {
+  $("#okdone").hide();
+  $("#okwrong").hide();
   $("#output").text(`
   `)
   socket = io()
