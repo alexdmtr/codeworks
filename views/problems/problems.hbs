@@ -15,6 +15,8 @@
 
     });
   </script> --}}
+<link rel="stylesheet" href="/css/sandbox.css">
+
 </div>
 <div class="row clearfix">
   {{#each problems}}
@@ -22,9 +24,16 @@
     <div class="card" style="min-height: 300px;">
       <div class="header">
         <h2> <a href="/problems/{{this.key}}" >{{this.title}}</a> </h2>
-        <div class="header-dropdown m-r-5">
-          {{!-- <a href="/problems/{{this.key}}" class="btn btn-light"> View </a> --}}
-        </div>
+        {{!-- <div class="header-dropdown m-r-5">
+          <a href="/problems/{{this.key}}" class="btn btn-light"> View </a>
+        </div> --}}
+        {{#if this.status.new}}
+        <div class="statusLabel text" id="status_label" style="background-color: #F44336">NEW</div>
+        {{else if this.status.attempted}}
+        <div class="statusLabel text" id="status_label" style="background-color: #3846F2">ATTEMPTED</div>
+        {{else}}
+        <div class="statusLabel text" id="status_label" style="background-color: #37C10A">SOLVED</div>
+        {{/if}}
       </div>
       <div class="body">
         <p> {{this.text}} </p>
