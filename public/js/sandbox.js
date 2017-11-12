@@ -37,13 +37,19 @@ function onAuth() {
 
 function runDone(data) {
   var compileError = data.compileError;
+  var runtimeError = data.runtimeError;
   var stdout = data.stdout;
   var stderr = data.stderr;
 
   var message = stdout;
-  if (compileError)
+  if (compileError) {
+    $("#output-error").text("Compile error");
     message = compileError.stderr;
-
+  } else if (runtimeError) {
+    $("#output-error").text("Runtime error");
+    message = runtimeError.stderr;
+  } else
+    $("#output-error").text("");
   $("#output").html(message);
   $("#run-text").text("RUN")
 }
@@ -59,6 +65,7 @@ function saveCode() {
   __delaying = false;
   socket.emit('save', { 
     code: editor.getValue(),
+    args: input.getValue(),
     sandbox: true
   })
 }
@@ -67,6 +74,7 @@ function runCode() {
   $("#run-text").text("RUNNING")
   socket.emit('run', {
     code: editor.getValue(),
+    args: input.getValue(),
     sandbox: true
   })
 }
