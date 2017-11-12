@@ -103,7 +103,7 @@ function saveCode() {
   __delaying = false;
   socket.emit('save', { 
     code: editor.getValue(),
-    args: SANDBOX && input.getValue(),
+    args: input.getValue(),
     sandbox: SANDBOX,
     problem: PROBLEM
   })

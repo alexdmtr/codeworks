@@ -42,7 +42,8 @@
 
 <body class="theme-red">
     <!-- Page Loader -->
-    {{!-- <div class="page-loader-wrapper">
+    {{!--
+    <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
                 <div class="spinner-layer pl-red">
@@ -59,7 +60,8 @@
     </div> --}}
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
-    {{!-- <div class="overlay"></div> --}}
+    {{!--
+    <div class="overlay"></div> --}}
     <!-- #END# Overlay For Sidebars -->
     <!-- Top Bar -->
     <nav class="navbar">
@@ -68,16 +70,26 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
                 <a class="navbar-brand" href="/">
-                    CodeWorks
-                    {{!-- <img src="/images/logoBig.png" alt="" height="100px" class="logoImg"> --}}
+                    CodeWorks {{!--
+                    <img src="/images/logoBig.png" alt="" height="100px" class="logoImg"> --}}
                 </a>
             </div>
+            {{!-- <form class="navbar-form" role="search" style="margin:0 auto">
+                <div class="input-group">
+                    <input class="form-control" style="height:50px; max-width: 300px;" name="search" value="{{search}}"
+                    />
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                    </div>
+                </div>
+            </form> --}}
         </div>
     </nav>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar" >
+        <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
             <div class="user-info">
                 <div class="info-container">
@@ -89,7 +101,8 @@
                             <i class="material-icons">input</i>
                         </a>
                     </div>
-                    {{!-- <div class="btn-group user-helper-dropdown">
+                    {{!--
+                    <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li>
@@ -105,28 +118,29 @@
             <div class="menu" style="background-image:url('/images/logoGray.png'); background-size: 320px 180px; background-repeat: no-repeat; background-position: 0% 60%">
                 <ul class="list">
                     <li class="header">NAVIGATION</li>
-                    {{!-- <li class="active"> --}}
-                    {{!-- TODO: implement active class --}}
-                    <li>
-                        <a href="/">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li {{#if page.problems}} class='active' {{/if}}>
-                        <a href="/problems">
-                            <i class="material-icons">text_fields</i>
-                            <span>Problems</span>
-                        </a>
-                    </li>
-                    <li {{#if page.sandbox}} class='active' {{/if}}>
-                        <a href="/sandbox">
-                            <i class="material-icons">layers</i>
-                            <span>Sandbox</span>
-                        </a>
-                    </li>
+                    {{!--
+                    <li class="active"> --}} {{!-- TODO: implement active class --}}
+                        <li>
+                            <a href="/">
+                                <i class="material-icons">home</i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li {{#if page.problems}} class='active' {{/if}}>
+                            <a href="/problems">
+                                <i class="material-icons">text_fields</i>
+                                <span>Problems</span>
+                            </a>
+                        </li>
+                        <li {{#if page.sandbox}} class='active' {{/if}}>
+                            <a href="/sandbox">
+                                <i class="material-icons">layers</i>
+                                <span>Sandbox</span>
+                            </a>
+                        </li>
                 </ul>
-                {{!-- <img src="/images/logoGray.png" style="width: 100%; position: relative; top: -200px"> --}}
+                {{!--
+                <img src="/images/logoGray.png" style="width: 100%; position: relative; top: -200px"> --}}
             </div>
             <!-- #Menu -->
             <!-- Footer -->
@@ -140,7 +154,7 @@
         </aside>
         <!-- #END# Left Sidebar -->
     </section>
-    <section class="content" >
+    <section class="content">
         <div class="container-fluid">
             {{{ body }}}
         </div>

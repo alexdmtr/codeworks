@@ -5,14 +5,33 @@ var fs = require('fs');
 
 exports.getProblems = async (req, res) => {
 
+
+
+  const search = req.query.search;
+  var problems = await db.utils.getList('/problems')
+
+  if (search)
+    problems = problems.filter(problem => {
+      let fields = ['title', 'text'];
+
+      let ok = false;
+      fields.forEach(field => {
+        var a = problem[field].toUpperCase();
+        var b = search.toUpperCase();
+        if (a.includes(b))
+          ok = true;
+      })
+
+      return ok;
+    })
   var context = {
-    problems: await db.utils.getList('/problems'),
+    problems,
     page: {
       problems: true
     },
-    pageName: 'Problems'
+    pageName: 'Problems',
+    search
   }
-
   res.render('problems/problems', context)
 }
 
@@ -27,8 +46,8 @@ exports.getProblem = async (req, res) => {
   })
 
 
-  problemData = problemData || { };
-  data = data || { code: null, args: ""}
+  problemData = problemData || {};
+  data = data || { code: null, args: problemData.args }
   res.render('sandbox', {
     jwt: req.cookies['access_token'],
     code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
@@ -46,14 +65,14 @@ exports.postProblem = async (req, res) => {
   var problemID = req.params.id
   var form = new formidable.IncomingForm()
   form.parse(req, (err, fields, files) => {
-    fs.readFile(files.file.path, 'utf8', async function (err,data) {
+    fs.readFile(files.file.path, 'utf8', async function (err, data) {
       await db.utils.saveProblemCode({
         userID: req.user.id,
         problem: problemID,
         code: data
       })
 
-      res.redirect('/problems/'+problemID);
+      res.redirect('/problems/' + problemID);
     })
   })
   // var problem = await getObj("/problems/"+problemID)
@@ -67,8 +86,8 @@ exports.getSandbox = async (req, res) => {
     problem: 'sandbox',
   })
 
-  data = data || { code: null, args: ""}
-  
+  data = data || { code: null, args: "" }
+
 
   res.render('sandbox', {
     jwt: req.cookies['access_token'],

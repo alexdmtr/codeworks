@@ -1,9 +1,9 @@
 <div class="row clearfix" style="padding-left: 31px;">
   <link rel="stylesheet" type="text/css" href="/css/component.css" />
   <script src="/js/modernizr.custom.js"></script>
-  <div id="sb-search" class="sb-search">
+  {{!-- <div id="sb-search" class="sb-search sb-search-open">
     <form>
-      <input class="sb-search-input" placeholder="Enter your search term..." type="text" value="" name="search" id="search">
+      <input class="sb-search-input " placeholder="Enter your search term..." type="text" value="{{search}}" name="search" id="search">
       <input class="sb-search-submit" type="submit" value="">
       <span class="sb-icon-search"></span>
     </form>
@@ -11,17 +11,19 @@
   <script src="/js/classie.js"></script>
   <script src="/js/uisearch.js"></script>
   <script>
-    new UISearch(document.getElementById('sb-search'));
-  </script>
+    new UISearch(document.getElementById('sb-search'), {
+
+    });
+  </script> --}}
 </div>
 <div class="row clearfix">
   {{#each problems}}
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="card" style="min-height: 300px;">
       <div class="header">
-        <h2> {{this.title}} </h2>
+        <h2> <a href="/problems/{{this.key}}" >{{this.title}}</a> </h2>
         <div class="header-dropdown m-r-5">
-          <a href="/problems/{{this.key}}" class="btn btn-light"> Try Now! </a>
+          {{!-- <a href="/problems/{{this.key}}" class="btn btn-light"> View </a> --}}
         </div>
       </div>
       <div class="body">
