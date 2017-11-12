@@ -34,6 +34,8 @@
     <!-- Custom Css -->
     <link href="/css/style.css" rel="stylesheet">
 
+    <link href="/css/logo.css" rel="stylesheet">
+
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/css/themes/all-themes.css" rel="stylesheet" />
 </head>
@@ -57,22 +59,24 @@
     </div> --}}
     <!-- #END# Page Loader -->
     <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
+    {{!-- <div class="overlay"></div> --}}
     <!-- #END# Overlay For Sidebars -->
     <!-- Top Bar -->
-    <nav class="navbar">
+    {{!-- <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="/">CodeWorks</a>
+                <a class="navbar-brand" href="/">
+                    <img src="/images/logo.png" alt="" height="30px" class="logoImg">
+                </a>
             </div>
         </div>
-    </nav>
+    </nav> --}}
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
-        <aside id="leftsidebar" class="sidebar">
+        <aside id="leftsidebar" class="sidebar" style="top: 0; min-height: 100%">
             <!-- User Info -->
             <div class="user-info">
                 <div class="info-container">
@@ -80,6 +84,11 @@
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.name }}</div>
                     <div class="email">{{ user.email }}</div>
                     <div class="btn-group user-helper-dropdown">
+                        <a href="/signout" style="color: white; position: relative; top: -7px;">
+                            <i class="material-icons">input</i>
+                        </a>
+                    </div>
+                    {{!-- <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
                             <li>
@@ -87,7 +96,7 @@
                                     <i class="material-icons">input</i>Sign Out</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <!-- #User Info -->
@@ -116,6 +125,7 @@
                         </a>
                     </li>
                 </ul>
+                {{!-- <img src="/images/logoGray.png" style="width: 100%; position: relative; top: -200px"> --}}
             </div>
             <!-- #Menu -->
             <!-- Footer -->
@@ -132,7 +142,7 @@
         </aside>
         <!-- #END# Left Sidebar -->
     </section>
-    <section class="content">
+    <section class="content" style=" position: absolute; top: -75px; width: 78.5%">
         <div class="container-fluid">
             {{{ body }}}
         </div>
