@@ -2,6 +2,7 @@ var formidable = require('formidable')
 var db = require('../db');
 var path = require('path');
 var fs = require('fs');
+var Promise = require('bluebird')
 
 exports.getProblems = async (req, res) => {
 
@@ -9,22 +10,37 @@ exports.getProblems = async (req, res) => {
 
   const search = req.query.search;
   var problems = await db.utils.getList('/problems')
+//   var submissions = await db.utils.getList('/submissions')
+// var userID=req.user.id;
+//   problems.forEach(problem => {
+//     var isCorrect = correctProblems.filter(p => p.key==problem.key).length > 0;
+//     var isAttempted = attemptedProblems.filter(p => p.key==problem.key).length > 0;
 
-  problems.forEach(async problem => {
-    problem.status = {};
-    if (await db.utils.isProblemCorrect({
-      userID: req.user.id,
-      problemID: problem.key
-    })) {
-      problem.status.solved = true;
-    }
-    else if (await db.utils.isProblemAttempted({
-      userID: req.user.id,
-      problemID: problem.key}))
-      {
-        problem.status.attempted = true;
-      }
-  })
+//     problem.status = {
+//       solved: isCorrect,
+//       attempted: isAttempted
+//     }
+//   })
+  // await Promise.map(problems, async problem => {
+  //   problem.status = {};
+  //   if (await db.utils.isProblemCorrect({
+  //     userID: req.user.id,
+  //     problemID: problem.key
+  //   })) {
+  //     problem.status.solved = true;
+  //   }
+  //   else if (await db.utils.isProblemAttempted({
+  //     userID: req.user.id,
+  //     problemID: problem.key
+  //   })) {
+  //     problem.status.attempted = true;
+  //   }
+
+  //   console.log(problem.title, problem.status)
+
+  // }
+
+  // )
 
   // if (search)
   //   problems = problems.filter(problem => {

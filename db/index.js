@@ -128,8 +128,7 @@ async function getAttemptedProblems(userID) {
 }
 async function isProblemCorrect({userID, problemID}) {
   var tree = await getList('/submissions')
-
-  if (tree[problemID][userID])
+  if (tree[problemID] && tree[problemID][userID])
     if(tree[problemID][userID].solved)
       return true;
   return false;
@@ -138,7 +137,7 @@ async function isProblemCorrect({userID, problemID}) {
 async function isProblemAttempted({userID, problemID}) {
   var tree = await getList('/submissions')
 
-  if (tree[problemID][userID])
+  if (tree[problemID] && tree[problemID][userID])
       return true;
   return false;
 }
