@@ -23,6 +23,15 @@ io.on('connection', socketioJwt.authorize({
     });
     socket.emit('save:ok');
   })
+  socket.on('run', async function({code, sandbox, problem}) {
+    var problemName = sandbox ? 'sandbox': problem;
+    eval.run({
+      userID: user.id,
+      problemID: problemName,
+      code: code
+    })
+  })
+
   socket.on('disconnect', function () {
     console.log(user.name + ' disconnected');
   })

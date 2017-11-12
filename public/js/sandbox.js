@@ -30,7 +30,7 @@ function onAuth() {
     delaySaveCode();
   })  
 
-  
+
 }
 
 var __delaying = false;
@@ -50,8 +50,9 @@ function saveCode() {
 }
 
 function runCode() {
+  console.log('run!');
   socket.emit('run', {
-    code: $("#code").val(),
+    code: editor.getValue(),
     sandbox: true
   })
 }
