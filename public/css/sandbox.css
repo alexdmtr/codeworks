@@ -1,6 +1,6 @@
 .runBtn
 {
-    background-color: #E91E63;
+    background-color: #3EE52C;
     float: right;
     height: 40px;
     position: relative;
@@ -13,6 +13,17 @@
     min-width: 100px;
 }
 .runBtn:hover
+{
+    background-color: #2FC61E;
+}
+
+.debugBtn
+{
+    margin-right: 20px;
+    background-color: #E91E63;
+}
+
+.debugBtn:hover
 {
     background-color: #CE2867;
 }
