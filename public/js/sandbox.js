@@ -9,6 +9,7 @@ function getCookie(name) {
 
 function main() {
   socket = io()
+  // editor.setSize(null, 400);
   socket.on('connect', function () {
     socket
       .emit('authenticate', {token: getCookie('access_token')}) 
