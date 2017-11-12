@@ -3,6 +3,7 @@
 <script src="/codemirror/lib/codemirror.js"></script>
 <script src="/codemirror/brackets/matchbrackets.js"></script>
 <script src="/codemirror/mode/clike.js"></script>
+{{#if sandbox}}
 <div class="row clearfix">
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="info-box bg-pink hover-expand-effect" onclick="runCode()" style="cursor:pointer">
@@ -23,9 +24,9 @@
             <div class="header">
                 <div class="row clearfix">
                     <div class="col-xs-12 col-sm-6">
-                        <h2>CODE
+                        <h3>CODE
                             <>
-                        </h2>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -49,11 +50,11 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
         <div class="card">
             <div class="header">
-                <h2>INPUT</h2>
+                <h3>INPUT</h3>
             </div>
             <div class="body">
                 <form>
-                    <textarea id="input" name="input"></textarea>
+                    <textarea id="input" name="input">{{{args}}}</textarea>
                 </form>
 
                 <script>
@@ -68,22 +69,100 @@
 </div>
 
 <div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="min-height:300px">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h3>Output <small id='output-error'></small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <pre class="body" style="background-color: #263238; color: white; max-height:250px;" id="output">
+
+            </pre>
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-pink hover-expand-effect" onclick="runCode()" style="cursor:pointer">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text" id="run-text">RUN</div>
+                <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="card">
             <div class="header">
                 <div class="row clearfix">
                     <div class="col-xs-12 col-sm-6">
-                        <h2>Output
-                        </h2>
+                        <h3>CODE
+                            <>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="body" style="background-color: #263238">
+                <form>
+                    <textarea id="code" name="code">{{{code}}}</textarea>
+                </form>
+
+                <script>
+                    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                        lineNumbers: true,
+                        matchBrackets: true,
+                        theme: "material",
+                        mode: "text/x-java",
+                        tabSize: 2,
+                        indentWithTabs: false
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="card">
+            <div class="header">
+              <h3> DESCRIPTION </h3>
+              <ul class="list-group">
+                  <li class="list-group-item">OUTLINE</li>
+                  <li class="list-group-item">INPUTS</li>
+                  <li class="list-group-item">EXPECTED OUTPUT</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="min-height:300px">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-6">
+                        <h3>Output <small id='output-error'></small>
+                        </h3>
                     </div>
                 </div>
             </div>
             <pre class="body" style="background-color: #263238; color: white; max-height:250px;" id="output">
-                 
+
             </pre>
         </div>
     </div>
 </div>
+{{/if}}
+
 
 <script>
                     window.onbeforeunload = function () {
