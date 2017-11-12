@@ -2483,7 +2483,7 @@ section.content {
     left: 0px !important;
     top: 6px !important; }
 
-.btn:not(.btn-link):not(.btn-circle) {
+.btn:not(.btn-link):not(.btn-circle):not(.btn-light) {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -2532,6 +2532,15 @@ section.content {
 .btn-primary:active,
 .btn-primary:focus {
   background-color: #1f91f3 !important; }
+
+.btn-light,
+.btn-light:hover,
+.btn-light:active,
+.btn-light:focus{
+    color: #111;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
 
 .btn-default,
 .btn-default:hover,
@@ -8039,4 +8048,3 @@ html.ie11 .dropdown-menu ul.menu li a {
 
 html.ie11 .bs-searchbox .form-control {
   width: 90%; }
-
