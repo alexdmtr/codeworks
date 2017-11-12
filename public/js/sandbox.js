@@ -8,6 +8,8 @@ function getCookie(name) {
 }
 
 function main() {
+  $("#output").text(`
+  `)
   socket = io()
   // editor.setSize(null, 400);
   socket.on('connect', function () {
@@ -30,33 +32,49 @@ function onAuth() {
     // console.log("Saved!");
     delaySaveCode();
   })  
+  socket.on('run:stdout', runStdout);
+  socket.on('run:stderr', runStderr);
   socket.on('run:done', runDone);
- 
+}
 
+function runStdout(data) {
+  // $("#output").text($("#output").val()+data)
+  $("#output").append(data)
+}
+
+function runStderr(data) {
+  // $("#output").text($("#output").val()+data)  
+  $("#output").append(data)
+  
 }
 
 function runDone(data) {
   var compileError = data.compileError;
-  var runtimeError = data.runtimeError;
-  var stdout = data.stdout;
-  var stderr = data.stderr;
+  // var runtimeError = data.runtimeError;
+  // var stdout = data.stdout;
+  // var stderr = data.stderr;
   var miliseconds = data.miliseconds;
   var seconds = (miliseconds / 1000.).toFixed(4);
+  var kill = data.kill;
 
-  var message = stdout;
+  var message = "";
   if (compileError) {
     $("#output-error").text("Compile error");
     message = compileError.stderr;
-  } else if (runtimeError) {
-    $("#output-error").text("Runtime error");
-    message = runtimeError.stderr;
+  // } else if (runtimeError) {
+  //   $("#output-error").text("Runtime error");
+  //   message = runtimeError.stderr;
   } else
     $("#output-error").text("");
 
+  if (kill)
+    message += `Program terminated after ${seconds}s`;
   message += `
 ===========================
+Program finished with exit code ${data.code}
 Execution time: ${seconds}s`;
-  $("#output").html(message);
+
+  $("#output").text($("#output").text()+message);
   
   $("#run-text").text("RUN")
 }
@@ -80,6 +98,8 @@ function saveCode() {
 
 function runCode() {
   $("#run-text").text("RUNNING")
+  $("#output").text(`
+`)
   socket.emit('run', {
     code: editor.getValue(),
     args: SANDBOX && input.getValue(),

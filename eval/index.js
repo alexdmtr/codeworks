@@ -4,10 +4,11 @@ const fs = require('fs')
 const Promise = require('bluebird')
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+const spawn = require('child_process').spawn;
 
 const SUBMISSIONS_DIR = path.resolve(__dirname, '../submissions')
 
-exports.run = async ({ userID, problemID, code, args }) => {
+exports.run = async ({ userID, problemID, code, args, onStdout, onStderr, onExit }) => {
   const problem_dir = path.resolve(SUBMISSIONS_DIR, problemID);
   const user_dir = path.resolve(problem_dir, userID);
 
@@ -34,30 +35,30 @@ exports.run = async ({ userID, problemID, code, args }) => {
 
 
   async function javac() {
-    const { stdout, stderr } = await exec('javac Main.java', {
+    const { stdout, stderr } = await exec('javac -g Main.java', {
       cwd: user_dir
     });
 
     return { stdout, stderr }
   }
 
-  async function java(args) {
-    const command = 'java -classpath . Main ' + args;
-    console.log(command);
-    const { stdout, stderr } = await exec(command, {
-      cwd: user_dir
-    });
+  // async function java(args) {
+  //   const command = 'java -classpath . Main ' + args;
+  //   console.log(command);
+  //   const { stdout, stderr } = await exec(command, {
+  //     cwd: user_dir
+  //   });
 
-    return { stdout, stderr }
-  }
+  //   return { stdout, stderr }
+  // }
 
   try {
     await javac();
   }
   catch (e) {
-    return {
-      compileError: e
-    }
+    onExit({
+      compilerError: e
+    })
   }
 
   var ms = endTime - startTime;
@@ -65,19 +66,52 @@ exports.run = async ({ userID, problemID, code, args }) => {
 
   var stdout, stderr;
   var startTime, endTime;
-  startTime = (+ new Date());  
-  try {
-    const data = await java(args);
-    endTime = (+ new Date());    
-    stdout = data.stdout;
-    stderr = data.stderr;    
-  } catch (e) {
-    return {
-      runtimeError: e
-    }
-  }
 
-  var ms = endTime - startTime;
+  // const command = 'java -classpath . Main ' + args;
+  
+  var program = spawn('java', ['-classpath', '.', 'Main', ...args.split(' ')], {
+    cwd: user_dir
+  });
 
-  return { stdout, stderr, miliseconds: ms };
+  startTime = (+ new Date()); 
+  var kill = false;
+  setInterval(() => {
+    kill = true;
+    program.kill(9);
+  }, 5000) // kill after 5 seconds
+  program.stdout.on('data', data=> {
+    if (!kill)
+      onStdout(data)
+  });
+  program.stderr.on('data', data=> {
+    if (!kill)
+      onStderr(data);
+  });
+  program.on('exit', code => {
+    endTime = (+ new Date());
+    var ms = endTime - startTime;
+
+    onExit({
+      kill,
+      code,
+      miliseconds: ms
+    })
+  });
+
+
+
+  // try {
+  //   const data = await java(args);
+  //   endTime = (+ new Date());    
+  //   stdout = data.stdout;
+  //   stderr = data.stderr;    
+  // } catch (e) {
+  //   return {
+  //     runtimeError: e
+  //   }
+  // }
+
+  // var ms = endTime - startTime;
+
+  // return { stdout, stderr, miliseconds: ms };
 }

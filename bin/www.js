@@ -36,17 +36,37 @@ io.on('connection', socketioJwt.authorize({
       args = problemData.inputs || "";
     }
 
-    console.log(code, args, problemName)
-    const { runtimeError, compileError, stdout, stderr, miliseconds } = await eval.run({
-      userID: user.id,
-      problemID: problemName,
-      code,
-      args
+    // console.log(code);
+
+    // console.log(code, args, problemName)
+    // const { runtimeError, compileError, stdout, stderr, miliseconds } = await eval.run({
+    //   userID: user.id,
+    //   problemID: problemName,
+    //   code,
+    //   args
+    // })
+    eval.run({
+        userID: user.id,
+        problemID: problemName,
+        code,
+        args,
+        onStdout: onStdout,
+        onStderr: onStderr,
+        onExit: exit
     })
 
-    socket.emit('run:done', {
-      runtimeError, compileError, stdout, stderr, miliseconds
-    });
+    function onStdout(data) {
+      socket.emit('run:stdout', data.toString());
+    }
+
+    function onStderr(data) {
+      socket.emit('run:stderr', data.toString())
+    }
+
+    function exit(data) {
+      socket.emit('run:done', data);
+    }
+
   })
 
   socket.on('disconnect', function () {
