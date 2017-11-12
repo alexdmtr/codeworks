@@ -13,6 +13,7 @@ exports.getProblems = async (req, res) => {
 }
 
 exports.getProblem = async (req, res) => {
+  console.log(req.params.id);
   var problemData = await db.utils.getProblemData({
     problem: req.params.id
   })
@@ -65,6 +66,7 @@ exports.getSandbox = async (req, res) => {
     jwt: req.cookies['access_token'],
     code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
     args: data.args,
-    sandbox: true
+    sandbox: true,
+    problem: {}
   })
 }

@@ -16,6 +16,7 @@ io.on('connection', socketioJwt.authorize({
   console.log(user.name + ' connected')
   socket.on('save', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
+    
     await db.utils.saveProblemCode({
       userID: user.id,
       problem: problemName,
@@ -26,6 +27,16 @@ io.on('connection', socketioJwt.authorize({
   })
   socket.on('run', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
+
+    if (!sandbox) {
+      const problemData = await db.utils.getProblemData({
+        problem: problemName
+      });
+
+      args = problemData.inputs || "";
+    }
+
+    console.log(code, args, problemName)
     const { runtimeError, compileError, stdout, stderr} = await eval.run({
       userID: user.id,
       problemID: problemName,
