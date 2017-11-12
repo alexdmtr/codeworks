@@ -27,10 +27,14 @@
   box-sizing: border-box;
   font-size: 14px;
 }
-.error {
+#error {
   font-family: "Roboto", sans-serif;
   color: #F44336;
   text-align: left;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 6px;
 }
 .submit {
   font-family: "Roboto", sans-serif;
