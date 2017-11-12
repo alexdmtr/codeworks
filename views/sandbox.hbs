@@ -95,7 +95,7 @@
                     <textarea id="code" name="code">{{{code}}}</textarea>
                 </form>
 
-                <script>
+                {{!-- <script>
                     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                         lineNumbers: true,
                         matchBrackets: true,
@@ -106,12 +106,13 @@
                         tabSize: 2,
                         indentWithTabs: false
                     });
-                </script>
+                    editor.setSize(1000, document.getElementById("problem_description").height);
+                </script> --}}
             </div>
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card">
+        <div class="card" id="problem_description">
             <div class="header">
                 <h3> {{{problem.title}}} </h3>
                 <ul class="list-group">
@@ -162,6 +163,19 @@
         </div>
     </div>
 </div>
+                <script>
+                    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                        lineNumbers: true,
+                        matchBrackets: true,
+                        theme: "material",
+                        mode: "test",
+                        lineWrapping: true,
+                        mode: "text/x-java",
+                        tabSize: 2,
+                        indentWithTabs: false
+                    });
+                    editor.setSize("100%", document.getElementById("problem_description").offsetHeight - 138);
+                </script>
 {{/if}}
 
 <script src="/socket.io/socket.io.js"></script>
