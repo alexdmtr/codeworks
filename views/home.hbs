@@ -1,13 +1,98 @@
+<div class="container-fluid">
 
-<h1 class="header">Welcome to <img src="images/logoBig.png" class="img img-responsive" style="height:100px; display:inline-block"></img></h1>
+  <div class="block-header">
+    <h2>Welcome Back!</h2>
+  </div>
+  <div class="block-header">
+    <h2><small> Your Home </small></h2>
+  </div>
 
-<h4>CodeWorks is built by people like you, for people like you. With challenging programming questions that help you learn Java and algorithms, cutting-edge online technology and a supportive community, your journey towards that degree or that job begins rock solid.</h4>
-{{!-- 
-<div class="col-md-6">
-<img src="images/blackboard.jpg" class="img img-responsive"></img>
-</div>
 
-<div class="col-md-6">
 
-<img src="images/students.jpg" class="img img-responsive"></img>
-</div> --}}
+  <!-- Widgets -->
+  <div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-pink hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">equalizer</i>
+        </div>
+        <div class="content">
+          <div class="text">Problems Attempted</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-red hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">equalizer</i>
+        </div>
+        <div class="content">
+          <div class="text">Problems Left</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-orange hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">equalizer</i>
+        </div>
+        <div class="content">
+          <div class="text">Correct Solutions</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box bg-yellow hover-expand-effect">
+        <div class="icon">
+          <i class="material-icons">equalizer</i>
+        </div>
+        <div class="content">
+          <div class="text">Problems</div>
+          <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="align-center">
+      <div class="card">
+          <div class="header bg-red">
+            <div class="header-dropdown m-r-5">
+              <a href="/problems" class="btn btn-danger"> Click Here </a>
+            </div>
+            <h2>
+              Problems</small>
+            </h2>
+          </div>
+          <div class="body">
+            The problems have varying levels of difficuly, some may be easy, some my be very difficult. They are in no particular order so if you feel you cannot solve a problem, feel free to attempt another.
+          </div>
+      </div>
+    </div>
+
+    <div class="align-center">
+      <div class="card">
+          <div class="header bg-orange">
+            <div class="header-dropdown m-r-5">
+              <a href="/sandbox" class="btn btn-warning"> Click Here </a>
+            </div>
+            <h2>
+              Sandbox</small>
+            </h2>
+          </div>
+          <div class="body">
+            The sandbox is a place where you can run your own Java code with custom inputs through the command line arguments.
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Jquery Core Js -->
+  <script src="/plugins/jquery/jquery.min.js"></script>
+
+  <!-- Custom Js -->
+  <script src="/js/pages/charts/morris.js"></script>
