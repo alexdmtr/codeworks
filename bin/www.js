@@ -28,13 +28,13 @@ io.on('connection', socketioJwt.authorize({
   socket.on('run', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
 
-    if (!sandbox) {
-      const problemData = await db.utils.getProblemData({
-        problem: problemName
-      });
+    // if (!sandbox) {
+    //   const problemData = await db.utils.getProblemData({
+    //     problem: problemName
+    //   });
 
-      args = problemData.inputs || "";
-    }
+    //   args = problemData.inputs || "";
+    // }
 
     // console.log(code);
 
