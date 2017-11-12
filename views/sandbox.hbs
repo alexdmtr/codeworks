@@ -26,7 +26,6 @@
                 <script>
                     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                         lineNumbers: true,
-                        lineWrapping: true,
                         matchBrackets: true,
                         theme: "material",
                         mode: "text/x-java",
@@ -50,8 +49,7 @@
                 <script>
                     var input = CodeMirror.fromTextArea(document.getElementById("input"), {
                         theme: "white",
-                        mode: "text",
-                        lineWrapping: true
+                        mode: "text"
                     });
                 </script>
             </div>
@@ -98,7 +96,6 @@
                 <script>
                     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                         lineNumbers: true,
-                        lineWrapping: true,
                         matchBrackets: true,
                         theme: "material",
                         mode: "text/x-java",
@@ -133,9 +130,8 @@
                             var input = CodeMirror.fromTextArea(document.getElementById("input"), {
                                 theme: "material",
                                 mode: "text",
-                                lineWrapping: true
                             });
-                            input.setSize(290,100);
+                            input.setSize("100%", "7em");
                         </script>
                     </li>
                 </ul>
