@@ -13,11 +13,18 @@ exports.getProblems = async (req, res) => {
 }
 
 exports.getProblem = async (req, res) => {
-  var problemID = req.params.id
+  var data = await db.utils.getProblemCode({
+    userID: req.user.id,
+    problem: req.params.id,
+  })
 
-  var problem = await db.utils.getObj("/problems/"+problemID)
-
-  res.render('problems/problem', { problem })
+  data = data || { code: null, args: ""}
+  res.render('sandbox', {
+    jwt: req.cookies['access_token'],
+    code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
+    args: data.args,
+    sandbox: false
+  })
 }
 
 exports.postProblem = async (req, res) => {
@@ -45,9 +52,13 @@ exports.getSandbox = async (req, res) => {
     problem: 'sandbox',
   })
 
+  data = data || { code: null, args: ""}
+  
+
   res.render('sandbox', {
     jwt: req.cookies['access_token'],
     code: data.code || "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Hello World!\");\n  }\n}",
-    args: data.args
+    args: data.args,
+    sandbox: true
   })
 }
