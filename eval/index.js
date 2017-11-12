@@ -7,7 +7,7 @@ const exec = util.promisify(require('child_process').exec);
 
 const SUBMISSIONS_DIR = path.resolve(__dirname, '../submissions')
 
-exports.run = async ({ userID, problemID, code }) => {
+exports.run = async ({ userID, problemID, code, args }) => {
   const problem_dir = path.resolve(SUBMISSIONS_DIR, problemID);
   const user_dir = path.resolve(problem_dir, userID);
 
@@ -41,8 +41,10 @@ exports.run = async ({ userID, problemID, code }) => {
     return { stdout, stderr }
   }
 
-  async function java() {
-    const { stdout, stderr } = await exec('java -classpath . Main', {
+  async function java(args) {
+    const command = 'java -classpath . Main ' + args;
+    console.log(command);
+    const { stdout, stderr } = await exec(command, {
       cwd: user_dir
     });
 
@@ -60,7 +62,7 @@ exports.run = async ({ userID, problemID, code }) => {
 
   var stdout, stderr;
   try {
-    const data = await java();
+    const data = await java(args);
     stdout = data.stdout;
     stderr = data.stderr;    
   } catch (e) {

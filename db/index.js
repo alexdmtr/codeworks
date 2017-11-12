@@ -35,7 +35,7 @@ async function getObj(path) {
 
 async function getProblemCode({ userID, problem}) {
   try {
-    var code = (await db.ref('/submissions/' + problem + '/' + userID + '/latest/code/').once('value')).val()
+    var code = (await db.ref('/submissions/' + problem + '/' + userID + '/latest').once('value')).val()
 
     return code
   }
@@ -45,10 +45,11 @@ async function getProblemCode({ userID, problem}) {
   }
 }
 
-async function saveProblemCode({ userID, problem, code }) {
+async function saveProblemCode({ args, userID, problem, code }) {
   await db.ref('/submissions/' + problem + '/' + userID + '/latest/').set({
     timestamp: Date.now(),
-    code
+    code,
+    args
   })
 }
 

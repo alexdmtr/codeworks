@@ -14,21 +14,23 @@ io.on('connection', socketioJwt.authorize({
   const user = socket.decoded_token;
 
   console.log(user.name + ' connected')
-  socket.on('save', async function({code, sandbox, problem}) {
+  socket.on('save', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
     await db.utils.saveProblemCode({
       userID: user.id,
       problem: problemName,
-      code
+      code,
+      args
     });
     socket.emit('save:ok');
   })
-  socket.on('run', async function({code, sandbox, problem}) {
+  socket.on('run', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
     const { runtimeError, compileError, stdout, stderr} = await eval.run({
       userID: user.id,
       problemID: problemName,
-      code: code
+      code,
+      args
     })
 
     socket.emit('run:done', {
