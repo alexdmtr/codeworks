@@ -13,14 +13,23 @@ exports.run = async ({ userID, problemID, code }) => {
 
   try {
     await Promise.promisify(fs.mkdir)(SUBMISSIONS_DIR);
+  } catch (e) {
+
+  }
+
+  try {
     await Promise.promisify(fs.mkdir)(problem_dir);
+  } catch (e) {
+
+  }
+
+  try {
     await Promise.promisify(fs.mkdir)(user_dir);
   } catch (e) {
 
   }
 
   const main_file = path.resolve(user_dir, 'Main.java');
-  console.log(problem_dir, user_dir, main_file)
   await Promise.promisify(fs.writeFile)(main_file, code);
 
 
