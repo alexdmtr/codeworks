@@ -32,6 +32,16 @@ async function getObj(path) {
 
   return obj;
 }
+async function getProblemData({problem}) {
+  try {
+    var problem = (await db.ref('/problems/'+problem).once('value')).val()
+
+    return problem
+  } catch(e) {
+    console.error(e);
+    return null;
+  }
+}
 
 async function getProblemCode({ userID, problem}) {
   try {
@@ -98,6 +108,6 @@ async function register({ email, username, name, password }) {
 
 db.utils = {
   getList, getObj, saveProblemCode, login, register, getUser,
-  getProblemCode
+  getProblemCode, getProblemData
 }
 module.exports = db;
