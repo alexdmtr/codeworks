@@ -112,9 +112,7 @@ async function register({ email, username, name, password }) {
 }
 
 async function getTotalProblems() {
-  // console.log('fuck you')
   var tree = await getList('/problems')
-  // console.log(tree!=null)
   return Object.keys(tree).length
 }
 
@@ -133,7 +131,7 @@ async function getCorrectProblems(userID) {
   var cnt = 0;
   Object.keys(tree).forEach(problemKey =>  {
     if (tree[problemKey][userID])
-      if (tree[problemKey][userID].correct)
+      if (tree[problemKey][userID].solved)
         cnt++;
   })
 
