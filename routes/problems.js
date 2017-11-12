@@ -40,5 +40,15 @@ exports.postProblem = async (req, res) => {
 }
 
 exports.getSandbox = async (req, res) => {
-  res.render('sandbox', )
+  var code = await db.utils.getProblemCode({
+    userID: req.user.id,
+    problem: 'sandbox',
+  })
+
+  console.log(code)
+
+  res.render('sandbox', {
+    jwt: req.cookies['access_token'],
+    code: code || "//// Write some code here!"
+  })
 }

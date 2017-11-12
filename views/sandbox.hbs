@@ -31,15 +31,7 @@
             </div>
             <div class="body">
                 <form>
-                    <textarea id="code" name="code">
-public class Main
-{
-    public static void main(String[] args)
-    {
-        System.out.println("Hello World!");
-    }
-}
-</textarea>
+                    <textarea id="code" name="code">{{{code}}}</textarea>
                 </form>
 
                 <script>
@@ -47,7 +39,8 @@ public class Main
                         lineNumbers: true,
                         matchBrackets: true,
                         theme: "material",
-                        mode: "text/x-scala"
+                        mode: "text/x-java"
+                        
                     });
                 </script>
             </div>
@@ -64,10 +57,7 @@ public class Main
                 </form>
 
                 <script>
-                    var inputEditor = CodeMirror.fromTextArea(document.getElementById("input"), {
-                        theme: "white",
-                        mode: "text"
-                    });
+                    
                 </script>
             </div>
         </div>
@@ -105,3 +95,6 @@ window.onload = function() {
     if (input !== null) $('#input').val(input);
 }
 </script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/sandbox.js" defer></script>

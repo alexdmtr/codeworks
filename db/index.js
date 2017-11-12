@@ -33,6 +33,18 @@ async function getObj(path) {
   return obj;
 }
 
+async function getProblemCode({ userID, problem}) {
+  try {
+    var code = (await db.ref('/submissions/' + problem + '/' + userID + '/latest/code/').once('value')).val()
+
+    return code
+  }
+  catch (e) {
+    console.error(e)
+    return null
+  }
+}
+
 async function saveProblemCode({ userID, problem, code }) {
   await db.ref('/submissions/' + problem + '/' + userID + '/latest/').set({
     timestamp: Date.now(),
@@ -84,6 +96,7 @@ async function register({ email, username, name, password }) {
 }
 
 db.utils = {
-  getList, getObj, saveProblemCode, login, register, getUser
+  getList, getObj, saveProblemCode, login, register, getUser,
+  getProblemCode
 }
 module.exports = db;
