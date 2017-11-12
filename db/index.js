@@ -33,10 +33,15 @@ async function getObj(path) {
   return obj;
 }
 async function getProblemData({problem}) {
+  console.log(problem)
   try {
-    var problem = (await db.ref('/problems/'+problem).once('value')).val()
 
-    return problem
+    var problemSnapshot = await db.ref('/problems/'+problem).once('value')
+
+    return {
+      key: problemSnapshot.key,
+      ...problemSnapshot.val()
+    }
   } catch(e) {
     console.error(e);
     return null;
