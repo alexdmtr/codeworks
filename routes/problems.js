@@ -10,52 +10,18 @@ exports.getProblems = async (req, res) => {
 
   const search = req.query.search;
   var problems = await db.utils.getList('/problems')
-//   var submissions = await db.utils.getList('/submissions')
-// var userID=req.user.id;
-//   problems.forEach(problem => {
-//     var isCorrect = correctProblems.filter(p => p.key==problem.key).length > 0;
-//     var isAttempted = attemptedProblems.filter(p => p.key==problem.key).length > 0;
+  var userID = req.user.id;
 
-//     problem.status = {
-//       solved: isCorrect,
-//       attempted: isAttempted
-//     }
-//   })
-  // await Promise.map(problems, async problem => {
-  //   problem.status = {};
-  //   if (await db.utils.isProblemCorrect({
-  //     userID: req.user.id,
-  //     problemID: problem.key
-  //   })) {
-  //     problem.status.solved = true;
-  //   }
-  //   else if (await db.utils.isProblemAttempted({
-  //     userID: req.user.id,
-  //     problemID: problem.key
-  //   })) {
-  //     problem.status.attempted = true;
-  //   }
-
-  //   console.log(problem.title, problem.status)
-
-  // }
-
-  // )
-
-  // if (search)
-  //   problems = problems.filter(problem => {
-  //     let fields = ['title', 'text'];
-
-  //     let ok = false;
-  //     fields.forEach(field => {
-  //       var a = problem[field].toUpperCase();
-  //       var b = search.toUpperCase();
-  //       if (a.includes(b))
-  //         ok = true;
-  //     })
-
-  //     return ok;
-  //   })
+  for (let i = 0; i < problems.length; i++) {
+    problems[i].status = {
+      solved: await db.utils.isProblemCorrect({
+        userID, problemID: problems[i].key
+      }),
+      attempted: await db.utils.isProblemAttempted({
+        userID, problemID: problems[i].key
+      })
+    }
+  }
 
   var context = {
     problems,
