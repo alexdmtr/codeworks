@@ -57,7 +57,17 @@ exports.run = async ({ userID, problemID, code }) => {
       compileError: e
     }
   }
-  const { stdout, stderr } = await java();
+
+  var stdout, stderr;
+  try {
+    const data = await java();
+    stdout = data.stdout;
+    stderr = data.stderr;    
+  } catch (e) {
+    return {
+      runtimeError: e
+    }
+  }
 
   return { stdout, stderr };
 }

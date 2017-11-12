@@ -25,14 +25,14 @@ io.on('connection', socketioJwt.authorize({
   })
   socket.on('run', async function({code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
-    const { compileError, stdout, stderr} = await eval.run({
+    const { runtimeError, compileError, stdout, stderr} = await eval.run({
       userID: user.id,
       problemID: problemName,
       code: code
     })
 
     socket.emit('run:done', {
-      compileError, stdout, stderr
+      runtimeError, compileError, stdout, stderr
     });
   })
 
