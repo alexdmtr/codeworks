@@ -10,27 +10,28 @@ exports.getProblems = async (req, res) => {
   const search = req.query.search;
   var problems = await db.utils.getList('/problems')
 
-  if (search)
-    problems = problems.filter(problem => {
-      let fields = ['title', 'text'];
+  // if (search)
+  //   problems = problems.filter(problem => {
+  //     let fields = ['title', 'text'];
 
-      let ok = false;
-      fields.forEach(field => {
-        var a = problem[field].toUpperCase();
-        var b = search.toUpperCase();
-        if (a.includes(b))
-          ok = true;
-      })
+  //     let ok = false;
+  //     fields.forEach(field => {
+  //       var a = problem[field].toUpperCase();
+  //       var b = search.toUpperCase();
+  //       if (a.includes(b))
+  //         ok = true;
+  //     })
 
-      return ok;
-    })
+  //     return ok;
+  //   })
+
   var context = {
     problems,
     page: {
       problems: true
     },
     pageName: 'Problems',
-    search
+    search,
   }
   res.render('problems/problems', context)
 }

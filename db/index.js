@@ -111,8 +111,37 @@ async function register({ email, username, name, password }) {
   return true
 }
 
+async function getTotalProblems() {
+  // console.log('fuck you')
+  var tree = await getList('/problems')
+  // console.log(tree!=null)
+  return Object.keys(tree).length
+}
+
+async function getAttemptedProblems(userID) {
+  var tree = await getList('/submissions')
+  var cnt = 0;
+  Object.keys(tree).forEach(problemKey =>  {
+    if (tree[problemKey][userID])
+      cnt++;
+  })
+
+  return cnt;
+}
+async function getCorrectProblems(userID) {
+  var tree = await getList('/submissions')
+  var cnt = 0;
+  Object.keys(tree).forEach(problemKey =>  {
+    if (tree[problemKey][userID])
+      if (tree[problemKey][userID].correct)
+        cnt++;
+  })
+
+  return cnt;
+}
 db.utils = {
   getList, getObj, saveProblemCode, login, register, getUser,
-  getProblemCode, getProblemData
+  getProblemCode, getProblemData,
+  getTotalProblems, getCorrectProblems, getAttemptedProblems
 }
 module.exports = db;
