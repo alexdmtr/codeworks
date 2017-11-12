@@ -15,8 +15,8 @@
                         <h3>Code
                         </h3>
                     </div>
-                    <div class="runBtn text" onclick="runCode()" id="run-text">RUN</div>
-                    <div class="runBtn debugBtn text" onclick="runCode()" id="run-debug">DEBUG</div>
+                    <div class="runBtn text" style="cursor: pointer" onclick="runCode()" id="run-text">RUN</div>
+                    <div class="runBtn debugBtn text" style="cursor: pointer" onclick="runCode()" id="run-debug">DEBUG</div>
                 </div>
             </div>
             <div class="body" style="background-color: #263238">
@@ -87,8 +87,8 @@
                         <h3>Code
                         </h3>
                     </div>
-                    <div class="runBtn text" onclick="runCode()" id="run-text">RUN</div>
-                    <div class="runBtn debugBtn text" onclick="runCode()" id="run-debug">DEBUG</div>
+                    <div class="runBtn text" onclick="runCode()" style="cursor:pointer" id="run-text">RUN</div>
+                    <div class="runBtn debugBtn text" onclick="runCode()" style="cursor:pointer" id="run-debug">DEBUG</div>
                 </div>
             </div>
             <div class="body" style="background-color: #263238">
@@ -128,7 +128,7 @@
                     <li class="list-group-item">
                         <h4>Your Input</h4>
                         <form>
-                            <textarea id="input" name="input" style="max-height: 100px; height: 100px">{{{problem.inputs}}}</textarea>
+                            <textarea id="input" name="input" style="max-height: 100px; height: 100px">{{{args}}}</textarea>
                         </form>
 
                         <script>
