@@ -1,0 +1,18 @@
+.runBtn
+{
+    background-color: #E91E63;
+    float: right;
+    height: 40px;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    font-size: 15px;
+    min-width: 100px;
+}
+.runBtn:hover
+{
+    background-color: #CE2867;
+}
