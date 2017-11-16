@@ -9,19 +9,58 @@ exports.getProblems = async (req, res) => {
 
 
   const search = req.query.search;
-  var problems = await db.utils.getList('/problems')
+  var problems = await db.utils.getList('/problems');
+  problems = problems.map(p => ({ status: {}, ...p}))
   var userID = req.user.id;
 
-  for (let i = 0; i < problems.length; i++) {
-    problems[i].status = {
-      solved: await db.utils.isProblemCorrect({
-        userID, problemID: problems[i].key
-      }),
-      attempted: await db.utils.isProblemAttempted({
-        userID, problemID: problems[i].key
-      })
-    }
+  function markSolved(solved, index) {
+    problems[index].status.solved = solved;
+
+    return Promise.resolve();
   }
+
+  function markAttempted(attempted, index) {
+    problems[index].status.attempted = attempted;
+
+    return Promise.resolve();
+  }
+
+  const whichSolved = Promise.map(problems, p => 
+    db.utils.isProblemCorrect({
+      userID,
+      problemID: p.key
+  })).map(markSolved);
+
+  const whichAttempted = Promise.map(problems, p => 
+    db.utils.isProblemAttempted({
+      userID,
+      problemID: p.key
+  })).map(markAttempted);
+
+  await Promise.all(whichSolved, whichAttempted);
+  
+  // var status = await Promise.map(problems, p => [db.utils.isProblemCorrect({
+  //   userID,
+  //   problemID: p.key
+  // }), db.utils.isProblemAttempted({
+  //   userID,
+  //   probemID: p.key
+  // })])
+  
+  // for (let i = 0; i < problems.length; i++) {
+  //   problems[i].status = { solved: status[i*2], attempted: status[i*2+1] };
+  // }
+
+  // for (let i = 0; i < problems.length; i++) {
+  //   problems[i].status = {
+  //     solved: await db.utils.isProblemCorrect({
+  //       userID, problemID: problems[i].key
+  //     }),
+  //     attempted: await db.utils.isProblemAttempted({
+  //       userID, problemID: problems[i].key
+  //     })
+  //   }
+  // }
 
   var context = {
     problems,
