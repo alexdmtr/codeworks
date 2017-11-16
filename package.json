@@ -1,8 +1,8 @@
 {
-  "name": "roadmap",
+  "name": "codeworks",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "bin/www.js",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "bluebird": "^3.5.0",
@@ -45,12 +45,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alex-dmtr/roadmap.git"
+    "url": "git+https://github.com/alex-dmtr/codeworks.git"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/alex-dmtr/roadmap/issues"
-  },
-  "homepage": "https://github.com/alex-dmtr/roadmap#readme"
+  "license": "ISC"
 }

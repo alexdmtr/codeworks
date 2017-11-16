@@ -3,7 +3,7 @@ const app = require('../app')
 var http = require('http').Server(app)
 var pem = require('pem')
 var winston = require('winston')
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 const eval = require('../eval')
 const db = require('../db')
 var io = require('socket.io')(http);
@@ -22,7 +22,7 @@ io.on('connection', socketioJwt.authorize({
       problem: problemName,
       code,
       args
-    });
+    }); 
     socket.emit('save:ok');
   })
   socket.on('run', async function({args, code, sandbox, problem}) {
@@ -101,7 +101,7 @@ pem.createCertificate({
   // var server = require('socket.io')(http);
   http.listen(port, () => {
     winston.info(`http listening on ${port}`);
-  })
+  }) 
   // https.createServer({
   //     key: keys.serviceKey,
   //     cert: keys.certificate

@@ -121,7 +121,7 @@ async function check({ userID, problemID, code, input, output, onResult}) {
     onStderr: function(data) {
       buffer += data.toString()
     },
-    onExit: function() {
+    onExit: function() { 
       // console.log(output);
       var ok = buffer.trim() === output.toString().trim();
 

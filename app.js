@@ -24,6 +24,7 @@ var morgan = require('morgan')
 var winston = require('winston')
 var jwt = require('jsonwebtoken')
 var cookieParser = require('cookie-parser')
+Promise = require('bluebird')
 var jwtMiddleware = expressJwt({
   secret: process.env.JWT_SECRET,
   credentialsRequired: false,
@@ -45,8 +46,6 @@ const authorizeMiddleware = (req, res, next) => {
 const viewAuthorizeMiddleware = (req, res, next) => {
   if (!req.user) return res.redirect('/login')
   res.locals.user = req.user;
-  console.log(req.user);
-  console.log(res.locals);
   next()
 }
 var app = express()
