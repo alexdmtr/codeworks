@@ -49,15 +49,16 @@ async function getProblemData({problem}) {
 }
 
 async function getProblemCode({ userID, problem}) {
-  try {
-    var code = (await db.ref('/submissions/' + problem + '/' + userID + '/latest').once('value')).val()
 
-    return code
-  }
-  catch (e) {
-    console.error(e)
-    return null
-  }
+  return db.ref(`submissions/${problem}/${userID}/latest`)
+    .once('value')
+    .then(snapshot => {
+      return snapshot.val()
+    })
+    .catch(err => {
+      console.error(err)
+      return null
+    })
 }
 
 async function saveProblemCode({ args, userID, problem, code }) {
