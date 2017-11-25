@@ -3,7 +3,7 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha')
 var app = require('./app')
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 gulp.task('default', function () {
   nodemon({
