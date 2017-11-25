@@ -3,36 +3,18 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha')
 var app = require('./app')
 
-gulp.task('seed', function () {
-  var db = require('./models')
-
-  return db
-    .sync({
-      force: true
-    })
-    .then(() => {
-      return db.seed();
-    });
-})
-
-
-gulp.task('test', ['seed'], function () {
-  return gulp.src('./test/**')
-    .pipe(mocha({
-      bail: true
-    }))
-
-})
+const opn = require('opn');
+const PORT = 3000;
 
 gulp.task('default', function () {
   nodemon({
     script: 'bin/www.js',
     ext: 'js',
     env: {
-      PORT: 3000
+      PORT
     },
     ignore: ['./node_modules/**'],
     // tasks: ['test'],
-    quiet: true
+    quiet: true,
   })
 })
