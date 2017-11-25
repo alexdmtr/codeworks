@@ -16,29 +16,18 @@ io.on('connection', socketioJwt.authorize({
   console.log(user.name + ' connected')
   socket.on('save', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
-    
+
     await db.utils.saveProblemCode({
       userID: user.id,
       problem: problemName,
       code,
       args
-    }); 
+    });
     socket.emit('save:ok');
   })
   socket.on('run', async function({args, code, sandbox, problem}) {
     var problemName = sandbox ? 'sandbox': problem;
 
-   
-
-    // console.log(code);
-
-    // console.log(code, args, problemName)
-    // const { runtimeError, compileError, stdout, stderr, miliseconds } = await eval.run({
-    //   userID: user.id,
-    //   problemID: problemName,
-    //   code,
-    //   args
-    // })
     eval.run({
         userID: user.id,
         problemID: problemName,
@@ -59,7 +48,11 @@ io.on('connection', socketioJwt.authorize({
     }
 
     function onStderr(data) {
-      socket.emit('run:stderr', data.toString())
+      var str = data.toString();
+
+      if (str.includes("Picked up JAVA_TOOL_OPTIONS:"))
+        return;
+      socket.emit('run:stderr', str)
     }
 
     async function exit(data) {
@@ -69,7 +62,7 @@ io.on('connection', socketioJwt.authorize({
         const problemData = await db.utils.getProblemData({
           problem: problemName
         });
-  
+
         eval.check({
           userID: user.id,
           problemID: problemName,
@@ -88,7 +81,7 @@ io.on('connection', socketioJwt.authorize({
           }
         })
       }
-    
+
     }
 
   })
@@ -106,7 +99,7 @@ pem.createCertificate({
   // var server = require('socket.io')(http);
   http.listen(port, () => {
     winston.info(`http listening on ${port}`);
-  }) 
+  })
   // https.createServer({
   //     key: keys.serviceKey,
   //     cert: keys.certificate
