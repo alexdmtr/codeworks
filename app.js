@@ -1,17 +1,8 @@
 require('dotenv').config()
 /* Add following environment variables in .env: */
 let envVars = [
-  // "DB_HOST",
-  // "DB_NAME",
-  // "DB_DIALECT", // 'postgres'
-  // "DB_USERNAME",
   "JWT_SECRET",
-  // "ROOT_USERNAME",
-  // "ROOT_PASSWORD",
 ]
-/* Optional:
-  "DB_PASSWORD"
-*/
 
 var assert = require('assert')
 
@@ -84,10 +75,6 @@ apiRouter.route('/auth')
 apiRouter.route('/users')
   .post(usersRouter.postUsers)
 
-// apiRouter.route('/users/:userId')
-//   .put(authorizeMiddleware, usersRouter.putUser)
-//   .delete(authorizeMiddleware, usersRouter.deleteUser)
-//   .get(authorizeMiddleware, usersRouter.getUser)
 app.use('/api', apiRouter);
 
 var rootRouter = express.Router();
@@ -130,14 +117,5 @@ app.get('/', viewAuthorizeMiddleware, async (req, res) => {
   })
 })
 
-
-// app.use(function (err, req, res, next) {
-//   if (err.name === 'UnauthorizedError') {
-//     //   res.status(401).send('invalid token...')
-//     // console.log("Unauthorized!")
-//     // res.redirect('/login');
-//   } else
-//     next(err)
-// });
 
 module.exports = app

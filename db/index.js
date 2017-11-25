@@ -62,7 +62,7 @@ async function getProblemCode({ userID, problem}) {
 }
 
 async function saveProblemCode({ args, userID, problem, code }) {
-  await db.ref('/submissions/' + problem + '/' + userID + '/latest/').set({
+  await db.ref(`/submissions/${problem}/${userID}/latest/`).set({
     timestamp: Date.now(),
     code,
     args
@@ -152,7 +152,7 @@ async function getCorrectProblems(userID) {
 }
 
 async function saveCorrectProblem({userID, problemID}) {
-  await db.ref('/submissions/'+problemID+'/'+userID).update({
+  await db.ref(`/submissions/${problemID}/${userID}`).update({
     solved: true
   })
 }
