@@ -58,12 +58,12 @@ async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }
   var startTime, endTime;
 
   // const command = 'java -classpath . Main ' + args;
-  
+
   var program = spawn('java', ['-classpath', '.', 'Main', ...args.split(' ')], {
     cwd: user_dir
   });
 
-  startTime = (+ new Date()); 
+  startTime = (+ new Date());
   var kill = false;
   setInterval(() => {
     kill = true;
@@ -93,9 +93,9 @@ async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }
 
   // try {
   //   const data = await java(args);
-  //   endTime = (+ new Date());    
+  //   endTime = (+ new Date());
   //   stdout = data.stdout;
-  //   stderr = data.stderr;    
+  //   stderr = data.stderr;
   // } catch (e) {
   //   return {
   //     runtimeError: e
@@ -109,7 +109,7 @@ async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }
 
 async function check({ userID, problemID, code, input, output, onResult}) {
   var buffer = "";
-  
+
   run({
     userID,
     problemID,
@@ -119,9 +119,13 @@ async function check({ userID, problemID, code, input, output, onResult}) {
       buffer += data.toString();
     },
     onStderr: function(data) {
-      buffer += data.toString()
+      var str = data.toString();
+
+      if (str.includes("Picked up JAVA_TOOL_OPTIONS:"))
+        return;
+      buffer += str;
     },
-    onExit: function() { 
+    onExit: function() {
       // console.log(output);
       var ok = buffer.trim() === output.toString().trim();
 
