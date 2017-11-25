@@ -54,10 +54,7 @@ io.on('connection', socketioJwt.authorize({
     function onStdout(data) {
       numDataChunks += 1;
       var str = data.toString();
-      
-      // Hacky fix for heroku
-      if (numDataChunks == 1 && str.contains('Picked up JAVA_TOOL_OPTIONS:'))
-        return;
+
       socket.emit('run:stdout', str);
     }
 
