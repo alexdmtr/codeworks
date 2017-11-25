@@ -3,7 +3,6 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha')
 var app = require('./app')
 
-const opn = require('opn');
 const PORT = 3000;
 
 gulp.task('default', function () {
