@@ -39,9 +39,7 @@
     "pem": "^1.9.4"
   },
   "scripts": {
-    "test": "gulp test",
-    "start": "gulp --silent",
-    "seed": "gulp seed"
+    "start": "gulp --silent"
   },
   "repository": {
     "type": "git",

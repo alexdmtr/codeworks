@@ -61,7 +61,15 @@ var exphbs  = require('express-handlebars');
 app.engine('hbs', exphbs({defaultLayout:'layout', extname:"hbs"}))
 app.set('view engine', 'hbs')
 
-app.use(jwtMiddleware)
+app.use(jwtMiddleware);
+app.use((err, req, res, next) => {
+  if (err.status === 401) {
+    req.user = null;
+    next();
+  }
+  else 
+    next(err);
+})
 
 var apiRouter = express.Router()
 var db = require('./db');
