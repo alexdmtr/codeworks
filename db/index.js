@@ -8,7 +8,7 @@ admin.initializeApp({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     "clientEmail": process.env.FIREBASE_CLIENT_EMAIL,
   }),
-  databaseURL: "https://***REMOVED***.firebaseio.com"
+  databaseURL: "https://codeworks-37a13.firebaseio.com"
 });
 
 var db = admin.database();
