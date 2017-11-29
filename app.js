@@ -2,12 +2,9 @@ require('dotenv').config()
 /* Add following environment variables in .env: */
 let envVars = [
   "JWT_SECRET",
-<<<<<<< HEAD
   "FIREBASE_PROJECT_ID",
   "FIREBASE_CLIENT_EMAIL",
   "FIREBASE_PRIVATE_KEY"
-=======
->>>>>>> 38b4e03e0c548f678f8985e886fd5f63dd2e42dd
 ]
 
 var assert = require('assert')

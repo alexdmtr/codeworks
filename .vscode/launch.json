@@ -1,30 +1,11 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-<<<<<<< HEAD
-=======
-    // {
-    //   "type": "node",
-    //   "request": "launch",
-    //   "name": "Gulp task",
-    //   "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js"
-    //   // "args": [
-    //   //   "task"
-    //   // ]
-    // },
->>>>>>> 38b4e03e0c548f678f8985e886fd5f63dd2e42dd
     {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-<<<<<<< HEAD
       "program": "${workspaceFolder}/bin/www.js"
-=======
-      "program": "${workspaceFolder}\\bin\\www.js"
->>>>>>> 38b4e03e0c548f678f8985e886fd5f63dd2e42dd
     }
   ]
 }
