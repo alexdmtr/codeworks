@@ -1,5 +1,9 @@
 var admin = require("firebase-admin");
 var bcrypt = require('bcrypt')
+<<<<<<< HEAD
+=======
+var serviceAccount = require("../secret/serviceAccountKey.json");
+>>>>>>> 38b4e03e0c548f678f8985e886fd5f63dd2e42dd
 const saltRounds = 10;
 
 admin.initializeApp({
@@ -165,4 +169,8 @@ db.utils = {
   getTotalProblems, getCorrectProblems, getAttemptedProblems, saveCorrectProblem,
   isProblemAttempted, isProblemCorrect
 }
+<<<<<<< HEAD
 module.exports = db;
+=======
+module.exports = db;
+>>>>>>> 38b4e03e0c548f678f8985e886fd5f63dd2e42dd
