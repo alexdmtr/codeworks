@@ -6,4 +6,5 @@ It allows you to run Java code in a sandbox, or to practice and learn programmin
 
 
 We developed this fun and amibtious project during the [GreatUniHack](http://greatunihack.com/)
-hackathon, where it won the Web Applications UK challenge.
+hackathon, where it won the Web Applications UK challenge; the idea was to build a website that
+helps young people, in our case it helps people learn programming.
