@@ -5,4 +5,5 @@
 It allows you to run Java code in a sandbox, or to practice and learn programming by solving preset programming problems.
 
 
-We developed this fun and amibtious project during the [GreatUniHack](http://greatunihack.com/) hackathon.
+We developed this fun and amibtious project during the [GreatUniHack](http://greatunihack.com/)
+hackathon, where it won the Web Applications UK challenge.
