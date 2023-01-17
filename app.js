@@ -13,7 +13,7 @@ envVars.forEach(value => assert.ok(process.env[value], `${value} not set`))
 
 var express = require('express')
 var bodyParser = require('body-parser')
-var expressJwt = require('express-jwt')
+var expressJwt = require('express-jwt').expressjwt
 var morgan = require('morgan')
 var winston = require('winston')
 var jwt = require('jsonwebtoken')
@@ -23,7 +23,7 @@ var jwtMiddleware = expressJwt({
   secret: process.env.JWT_SECRET,
   credentialsRequired: false,
   getToken: function (req) {
-    // console.log(req.cookies)
+    console.log(req.cookies)
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
       return req.headers.authorization.split(' ')[1];
     }
@@ -32,12 +32,15 @@ var jwtMiddleware = expressJwt({
     }
     return null;
   },
+  requestProperty: "user",
+  algorithms: ['HS256']
 })
 const authorizeMiddleware = (req, res, next) => {
   if (!req.user) return res.sendStatus(401)
   next()
 }
 const viewAuthorizeMiddleware = (req, res, next) => {
+  // console.log("req", req);
   if (!req.user) return res.redirect('/login')
   res.locals.user = req.user;
   next()
@@ -60,8 +63,8 @@ app.use(function (req, res, next) {
 })
 
 app.use(express.static('public'))
-var exphbs  = require('express-handlebars');
-app.engine('hbs', exphbs({defaultLayout:'layout', extname:"hbs"}))
+var exphbs = require('express-handlebars');
+app.engine('hbs', exphbs.engine({ defaultLayout: 'layout', extname: "hbs" }))
 app.set('view engine', 'hbs')
 
 app.use(jwtMiddleware);
@@ -101,10 +104,10 @@ rootRouter.route('/sandbox')
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
-  res.render('login', {layout: false})
+  res.render('login', { layout: false })
 })
 app.get('/register', (req, res) => {
-  res.render('register', {layout: false})
+  res.render('register', { layout: false })
 })
 app.get('/signout', (req, res) => {
   res.clearCookie('access_token')

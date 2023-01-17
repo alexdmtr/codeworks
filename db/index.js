@@ -8,7 +8,7 @@ admin.initializeApp({
     "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     "clientEmail": process.env.FIREBASE_CLIENT_EMAIL,
   }),
-  databaseURL: "https://codeworks-37a13.firebaseio.com"
+  databaseURL: "https://codeworks-91683-default-rtdb.europe-west1.firebasedatabase.app/"
 });
 
 var db = admin.database();
@@ -35,23 +35,23 @@ async function getObj(path) {
 
   return obj;
 }
-async function getProblemData({problem}) {
+async function getProblemData({ problem }) {
   console.log(problem)
   try {
 
-    var problemSnapshot = await db.ref('/problems/'+problem).once('value')
+    var problemSnapshot = await db.ref('/problems/' + problem).once('value')
 
     return {
       key: problemSnapshot.key,
       ...problemSnapshot.val()
     }
-  } catch(e) {
+  } catch (e) {
     console.error(e);
     return null;
   }
 }
 
-async function getProblemCode({ userID, problem}) {
+async function getProblemCode({ userID, problem }) {
 
   return db.ref(`submissions/${problem}/${userID}/latest`)
     .once('value')
@@ -108,7 +108,7 @@ async function register({ email, username, name, password }) {
   if (await getUser(username))
     throw new Error("Username already used");
 
-  let user = {email, username, name, password};
+  let user = { email, username, name, password };
   await hashPassword(user)
   await db.ref("/users").push(user)
 
@@ -123,29 +123,29 @@ async function getTotalProblems() {
 async function getAttemptedProblems(userID) {
   var tree = await getList('/submissions')
   var cnt = 0;
-  Object.keys(tree).forEach(problemKey =>  {
+  Object.keys(tree).forEach(problemKey => {
     if (tree[problemKey][userID])
       cnt++;
   })
 
   return cnt;
 }
-async function isProblemCorrect({userID, problemID}) {
+async function isProblemCorrect({ userID, problemID }) {
   return db.ref(`/submissions/${problemID}/${userID}/solved`)
     .once('value')
     .then(ss => ss.val() != null)
 }
 
-async function isProblemAttempted({userID, problemID}) {
+async function isProblemAttempted({ userID, problemID }) {
   return db.ref(`/submissions/${problemID}/${userID}`)
-  .once('value')
-  .then(ss => ss.val() != null)
+    .once('value')
+    .then(ss => ss.val() != null)
 }
 
 async function getCorrectProblems(userID) {
   var tree = await getList('/submissions')
   var cnt = 0;
-  Object.keys(tree).forEach(problemKey =>  {
+  Object.keys(tree).forEach(problemKey => {
     if (tree[problemKey][userID])
       if (tree[problemKey][userID].solved)
         cnt++;
@@ -154,7 +154,7 @@ async function getCorrectProblems(userID) {
   return cnt;
 }
 
-async function saveCorrectProblem({userID, problemID}) {
+async function saveCorrectProblem({ userID, problemID }) {
   await db.ref(`/submissions/${problemID}/${userID}`).update({
     solved: true
   })
