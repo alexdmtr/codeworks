@@ -1,44 +1,46 @@
-var formidable = require('formidable')
-var db = require('../db');
-var path = require('path');
-var fs = require('fs');
-var Promise = require('bluebird')
+import formidable from 'formidable';
+const { IncomingForm } = formidable;
+import { utils } from '../db';
+import path from 'path';
+import { readFile } from 'fs';
+import bluebird from "bluebird";
+const { resolve, map, all } = bluebird;
 
-exports.getProblems = async (req, res) => {
+export async function getProblems(req, res) {
 
 
 
   const search = req.query.search;
-  var problems = await db.utils.getList('/problems');
-  problems = problems.map(p => ({ status: {}, ...p}))
+  var problems = await utils.getList('/problems');
+  problems = problems.map(p => ({ status: {}, ...p }))
   var userID = req.user.id;
 
   function markSolved(solved, index) {
     problems[index].status.solved = solved;
 
-    return Promise.resolve();
+    return resolve();
   }
 
   function markAttempted(attempted, index) {
     problems[index].status.attempted = attempted;
 
-    return Promise.resolve();
+    return resolve();
   }
 
-  const whichSolved = Promise.map(problems, p => 
-    db.utils.isProblemCorrect({
+  const whichSolved = map(problems, p =>
+    utils.isProblemCorrect({
       userID,
       problemID: p.key
-  })).map(markSolved);
+    })).map(markSolved);
 
-  const whichAttempted = Promise.map(problems, p => 
-    db.utils.isProblemAttempted({
+  const whichAttempted = map(problems, p =>
+    utils.isProblemAttempted({
       userID,
       problemID: p.key
-  })).map(markAttempted);
+    })).map(markAttempted);
 
-  await Promise.all(whichSolved, whichAttempted);
-  
+  await all(whichSolved, whichAttempted);
+
   // var status = await Promise.map(problems, p => [db.utils.isProblemCorrect({
   //   userID,
   //   problemID: p.key
@@ -46,7 +48,7 @@ exports.getProblems = async (req, res) => {
   //   userID,
   //   probemID: p.key
   // })])
-  
+
   // for (let i = 0; i < problems.length; i++) {
   //   problems[i].status = { solved: status[i*2], attempted: status[i*2+1] };
   // }
@@ -73,12 +75,12 @@ exports.getProblems = async (req, res) => {
   res.render('problems/problems', context)
 }
 
-exports.getProblem = async (req, res) => {
+export async function getProblem(req, res) {
   console.log(req.params.id);
-  var problemData = await db.utils.getProblemData({
+  var problemData = await utils.getProblemData({
     problem: req.params.id
   })
-  var data = await db.utils.getProblemCode({
+  var data = await utils.getProblemCode({
     userID: req.user.id,
     problem: req.params.id,
   })
@@ -99,12 +101,12 @@ exports.getProblem = async (req, res) => {
   })
 }
 
-exports.postProblem = async (req, res) => {
+export async function postProblem(req, res) {
   var problemID = req.params.id
-  var form = new formidable.IncomingForm()
+  var form = new IncomingForm()
   form.parse(req, (err, fields, files) => {
-    fs.readFile(files.file.path, 'utf8', async function (err, data) {
-      await db.utils.saveProblemCode({
+    readFile(files.file.path, 'utf8', async function (err, data) {
+      await utils.saveProblemCode({
         userID: req.user.id,
         problem: problemID,
         code: data
@@ -118,8 +120,8 @@ exports.postProblem = async (req, res) => {
   res.render('problems/problem', { problem })
 }
 
-exports.getSandbox = async (req, res) => {
-  var data = await db.utils.getProblemCode({
+export async function getSandbox(req, res) {
+  var data = await utils.getProblemCode({
     userID: req.user.id,
     problem: 'sandbox',
   })

@@ -1,23 +1,31 @@
-const app = require('../app')
+import app from '../app.js'
+import httpServer from "http";
+import { Server } from "socket.io";
 // var https = require('https')
-var http = require('http').Server(app)
-var pem = require('pem')
-var winston = require('winston')
+var http = httpServer.Server(app)
+import { createCertificate } from 'pem'
+import winston from 'winston'
 const port = process.env.PORT || 3000
-const eval = require('../eval')
-const db = require('../db')
-var io = require('socket.io')(http);
-const socketioJwt = require('socketio-jwt');
-io.on('connection', socketioJwt.authorize({
-  secret: process.env.JWT_SECRET,
-})).on('authenticated', function (socket) {
-  const user = socket.decoded_token;
+import { run, check } from '../eval'
+import { utils } from '../db'
+var io = new Server(http);
+import { authorize } from '@thream/socketio-jwt'
+io.use(
+  authorize({
+    secret: process.env.JWT_SECRET,
+    timeout: 5000
+  })
+);
+
+io.on('connection', function (socket) {
+  const user = socket.decodedToken;
 
   console.log(user.name + ' connected')
-  socket.on('save', async function({args, code, sandbox, problem}) {
-    var problemName = sandbox ? 'sandbox': problem;
+  socket.emit("authenticated");
+  socket.on('save', async function ({ args, code, sandbox, problem }) {
+    var problemName = sandbox ? 'sandbox' : problem;
 
-    await db.utils.saveProblemCode({
+    await utils.saveProblemCode({
       userID: user.id,
       problem: problemName,
       code,
@@ -25,17 +33,17 @@ io.on('connection', socketioJwt.authorize({
     });
     socket.emit('save:ok');
   })
-  socket.on('run', async function({args, code, sandbox, problem}) {
-    var problemName = sandbox ? 'sandbox': problem;
+  socket.on('run', async function ({ args, code, sandbox, problem }) {
+    var problemName = sandbox ? 'sandbox' : problem;
 
-    eval.run({
-        userID: user.id,
-        problemID: problemName,
-        code,
-        args,
-        onStdout: onStdout,
-        onStderr: onStderr,
-        onExit: exit
+    run({
+      userID: user.id,
+      problemID: problemName,
+      code,
+      args,
+      onStdout: onStdout,
+      onStderr: onStderr,
+      onExit: exit
     })
 
     var numDataChunks = 0;
@@ -59,11 +67,11 @@ io.on('connection', socketioJwt.authorize({
       socket.emit('run:done', data);
 
       if (!sandbox) {
-        const problemData = await db.utils.getProblemData({
+        const problemData = await utils.getProblemData({
           problem: problemName
         });
 
-        eval.check({
+        check({
           userID: user.id,
           problemID: problemName,
           code,
@@ -71,7 +79,7 @@ io.on('connection', socketioJwt.authorize({
           output: problemData.output,
           onResult: async function (ok) {
             if (ok) {
-              await db.utils.saveCorrectProblem({
+              await utils.saveCorrectProblem({
                 userID: user.id,
                 problemID: problemName
               })
@@ -91,7 +99,7 @@ io.on('connection', socketioJwt.authorize({
   })
 });
 
-pem.createCertificate({
+createCertificate({
   days: 1,
   selfSigned: true
 }, function (err, keys) {

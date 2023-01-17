@@ -1,37 +1,38 @@
-const db = require('../db')
-const path = require('path')
-const fs = require('fs')
-const Promise = require('bluebird')
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const spawn = require('child_process').spawn;
+import { resolve } from 'path';
+import { mkdir, writeFile } from 'fs';
+import bluebird from 'bluebird';
+import childProcess from "child_process";
+const { promisify } = bluebird;
+import { promisify as _promisify } from 'util';
+const exec = _promisify(childProcess.exec);
+import { spawn } from 'child_process';
 
-const SUBMISSIONS_DIR = path.resolve(__dirname, '../submissions')
+const SUBMISSIONS_DIR = resolve("./submissions") //resolve(__dirname, '../submissions')
 
 async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }) {
-  const problem_dir = path.resolve(SUBMISSIONS_DIR, problemID);
-  const user_dir = path.resolve(problem_dir, userID);
+  const problem_dir = resolve(SUBMISSIONS_DIR, problemID);
+  const user_dir = resolve(problem_dir, userID);
 
   try {
-    await Promise.promisify(fs.mkdir)(SUBMISSIONS_DIR);
+    await promisify(mkdir)(SUBMISSIONS_DIR);
   } catch (e) {
 
   }
 
   try {
-    await Promise.promisify(fs.mkdir)(problem_dir);
+    await promisify(mkdir)(problem_dir);
   } catch (e) {
 
   }
 
   try {
-    await Promise.promisify(fs.mkdir)(user_dir);
+    await promisify(mkdir)(user_dir);
   } catch (e) {
 
   }
 
-  const main_file = path.resolve(user_dir, 'Main.java');
-  await Promise.promisify(fs.writeFile)(main_file, code);
+  const main_file = resolve(user_dir, 'Main.java');
+  await promisify(writeFile)(main_file, code);
 
 
   async function javac() {
@@ -69,11 +70,11 @@ async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }
     kill = true;
     program.kill(9);
   }, 5000) // kill after 5 seconds
-  program.stdout.on('data', data=> {
+  program.stdout.on('data', data => {
     if (!kill)
       onStdout(data)
   });
-  program.stderr.on('data', data=> {
+  program.stderr.on('data', data => {
     if (!kill)
       onStderr(data);
   });
@@ -107,7 +108,7 @@ async function run({ userID, problemID, code, args, onStdout, onStderr, onExit }
   // return { stdout, stderr, miliseconds: ms };
 }
 
-async function check({ userID, problemID, code, input, output, onResult}) {
+async function check({ userID, problemID, code, input, output, onResult }) {
   var buffer = "";
 
   run({
@@ -115,17 +116,17 @@ async function check({ userID, problemID, code, input, output, onResult}) {
     problemID,
     code,
     args: input,
-    onStdout: function(data) {
+    onStdout: function (data) {
       buffer += data.toString();
     },
-    onStderr: function(data) {
+    onStderr: function (data) {
       var str = data.toString();
 
       if (str.includes("Picked up JAVA_TOOL_OPTIONS:"))
         return;
       buffer += str;
     },
-    onExit: function() {
+    onExit: function () {
       // console.log(output);
       var ok = buffer.trim() === output.toString().trim();
 
@@ -134,6 +135,6 @@ async function check({ userID, problemID, code, input, output, onResult}) {
   })
 }
 
-module.exports = {
+export {
   run, check
 }

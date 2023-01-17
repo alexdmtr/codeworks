@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   mocha = require('gulp-mocha')
-var app = require('./app')
+var app = require('./app').default
 
 const PORT = process.env.PORT || 3000;
 

@@ -12,13 +12,12 @@ function main() {
   $("#okwrong").hide();
   $("#output").text(`
   `)
-  socket = io()
+  socket = io({ auth: { token: `Bearer ${getCookie('access_token')}` } })
   // editor.setSize(null, 400);
   socket.on('connect', function () {
     socket
-      .emit('authenticate', {token: getCookie('access_token')}) 
       .on('authenticated', onAuth)
-      .on('unauthorized', function(msg) {
+      .on('unauthorized', function (msg) {
         console.log("unauthorized: " + JSON.stringify(msg.data));
         throw new Error(msg.data.type);
       })
@@ -29,12 +28,12 @@ function main() {
 
 function onAuth() {
   console.log('authenticated')
-  delaySaveCode();  
+  delaySaveCode();
 
-  socket.on('save:ok', function() {
+  socket.on('save:ok', function () {
     // console.log("Saved!");
     delaySaveCode();
-  })  
+  })
   socket.on('run:stdout', runStdout);
   socket.on('run:stderr', runStderr);
   socket.on('run:done', runDone);
@@ -71,7 +70,7 @@ function pushBuffer() {
     $output.append(data);
     $output.get(0).scrollTop = $output.get(0).scrollHeight;
   }
-  }
+}
 
 function runDone(data) {
   var compileError = data.compilerError;
@@ -86,21 +85,21 @@ function runDone(data) {
     $("#output-error").text("Compile error");
     $("#output").text("")
     _buffer = compileError.stderr;
-  // } else if (runtimeError) {
-  //   $("#output-error").text("Runtime error");
-  //   message = runtimeError.stderr;
+    // } else if (runtimeError) {
+    //   $("#output-error").text("Runtime error");
+    //   message = runtimeError.stderr;
   } else
     $("#output-error").text("");
 
   if (kill)
     _buffer += `Program terminated after ${seconds}s`;
   if (!compileError)
-  _buffer += `
+    _buffer += `
 ===========================
 Program finished with exit code ${data.code}
 Execution time: ${seconds}s`;
 
-  
+
   $("#run-text").text("RUN")
 }
 var __delaying = false;
@@ -113,7 +112,7 @@ function delaySaveCode() {
 
 function saveCode() {
   __delaying = false;
-  socket.emit('save', { 
+  socket.emit('save', {
     code: editor.getValue(),
     args: input.getValue(),
     sandbox: SANDBOX,

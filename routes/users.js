@@ -1,7 +1,7 @@
 // var User = require('../models').models.user
-var db = require('../db')
+import db from "../db";
 
-exports.postUsers = async (req, res) => {
+export async function postUsers(req, res) {
   try {
     const user = await db.utils.register(req.body)
     res.status(201).json(user)

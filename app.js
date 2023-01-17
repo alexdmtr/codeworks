@@ -1,4 +1,5 @@
-require('dotenv').config()
+import "dotenv/config.js";
+
 /* Add following environment variables in .env: */
 let envVars = [
   "JWT_SECRET",
@@ -7,18 +8,19 @@ let envVars = [
   "FIREBASE_PRIVATE_KEY"
 ]
 
-var assert = require('assert')
+import { ok } from 'assert'
 
-envVars.forEach(value => assert.ok(process.env[value], `${value} not set`))
+envVars.forEach(value => ok(process.env[value], `${value} not set`))
 
-var express = require('express')
-var bodyParser = require('body-parser')
-var expressJwt = require('express-jwt').expressjwt
-var morgan = require('morgan')
-var winston = require('winston')
-var jwt = require('jsonwebtoken')
-var cookieParser = require('cookie-parser')
-Promise = require('bluebird')
+import express, { Router } from 'express'
+import bodyParser from 'body-parser'
+const { urlencoded, json } = bodyParser;
+import { expressjwt as expressJwt } from 'express-jwt'
+import morgan from 'morgan'
+import winston from 'winston'
+import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
+import Promise from "bluebird"
 var jwtMiddleware = expressJwt({
   secret: process.env.JWT_SECRET,
   credentialsRequired: false,
@@ -49,10 +51,10 @@ var app = express()
 app.use(cookieParser())
 app.use(morgan('dev'))
 
-app.use(bodyParser.urlencoded({
+app.use(urlencoded({
   extended: true
 }))
-app.use(bodyParser.json())
+app.use(json())
 
 // allow CORS
 app.use(function (req, res, next) {
@@ -63,8 +65,8 @@ app.use(function (req, res, next) {
 })
 
 app.use(express.static('public'))
-var exphbs = require('express-handlebars');
-app.engine('hbs', exphbs.engine({ defaultLayout: 'layout', extname: "hbs" }))
+import { engine } from 'express-handlebars'
+app.engine('hbs', engine({ defaultLayout: 'layout', extname: "hbs" }))
 app.set('view engine', 'hbs')
 
 app.use(jwtMiddleware);
@@ -77,30 +79,30 @@ app.use((err, req, res, next) => {
     next(err);
 })
 
-var apiRouter = express.Router()
-var db = require('./db');
-var authRouter = require('./routes/auth')
-var usersRouter = require('./routes/users')
+var apiRouter = Router()
+import { utils } from './db'
+import { postAuth } from './routes/auth'
+import { postUsers } from './routes/users'
 
 apiRouter.route('/auth')
-  .post(authRouter.postAuth)
+  .post(postAuth)
 
 
 apiRouter.route('/users')
-  .post(usersRouter.postUsers)
+  .post(postUsers)
 
 app.use('/api', apiRouter);
 
-var rootRouter = express.Router();
-var problemsRouter = require('./routes/problems')
+var rootRouter = Router();
+import { getProblems, getProblem, postProblem, getSandbox } from './routes/problems'
 
 rootRouter.route('/problems')
-  .get(viewAuthorizeMiddleware, problemsRouter.getProblems);
+  .get(viewAuthorizeMiddleware, getProblems);
 rootRouter.route('/problems/:id')
-  .get(viewAuthorizeMiddleware, problemsRouter.getProblem)
-  .post(viewAuthorizeMiddleware, problemsRouter.postProblem)
+  .get(viewAuthorizeMiddleware, getProblem)
+  .post(viewAuthorizeMiddleware, postProblem)
 rootRouter.route('/sandbox')
-  .get(viewAuthorizeMiddleware, problemsRouter.getSandbox)
+  .get(viewAuthorizeMiddleware, getSandbox)
 
 app.use('/', rootRouter);
 app.get('/login', (req, res) => {
@@ -116,9 +118,9 @@ app.get('/signout', (req, res) => {
 app.get('/', viewAuthorizeMiddleware, async (req, res) => {
 
   var obj = {
-    numberOfProblems: await db.utils.getTotalProblems(),
-    attemptedProblems: await db.utils.getAttemptedProblems(req.user.id),
-    correctProblems: await db.utils.getCorrectProblems(req.user.id)
+    numberOfProblems: await utils.getTotalProblems(),
+    attemptedProblems: await utils.getAttemptedProblems(req.user.id),
+    correctProblems: await utils.getCorrectProblems(req.user.id)
   };
 
   obj.leftProblems = obj.numberOfProblems - obj.correctProblems;
@@ -132,4 +134,4 @@ app.get('/', viewAuthorizeMiddleware, async (req, res) => {
 })
 
 
-module.exports = app
+export default app

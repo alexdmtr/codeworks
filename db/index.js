@@ -1,7 +1,7 @@
-var admin = require("firebase-admin");
-var bcrypt = require('bcrypt')
+// import * as admin from "firebase-admin";
+import admin from "firebase-admin"
+import { compare, hash as _hash } from 'bcrypt';
 const saltRounds = 10;
-
 admin.initializeApp({
   credential: admin.credential.cert({
     "projectId": process.env.FIREBASE_PROJECT_ID,
@@ -91,7 +91,7 @@ async function login({ username, password }) {
 
   if (!user) return false
 
-  const passwordOK = await bcrypt.compare(password, user.password)
+  const passwordOK = await compare(password, user.password)
 
   if (passwordOK)
     return user
@@ -100,7 +100,7 @@ async function login({ username, password }) {
 
 
 const hashPassword = async (user) => {
-  const hash = await bcrypt.hash(user.password, saltRounds)
+  const hash = await _hash(user.password, saltRounds)
   user.password = hash
 }
 
@@ -165,4 +165,6 @@ db.utils = {
   getTotalProblems, getCorrectProblems, getAttemptedProblems, saveCorrectProblem,
   isProblemAttempted, isProblemCorrect
 }
-module.exports = db;
+export default db;
+const utils = db.utils;
+export { utils }

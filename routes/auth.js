@@ -1,21 +1,22 @@
-var db = require('../db')
-var jwt = require('jsonwebtoken')
-var bcrypt = require('bcrypt')
+import db from "../db";
+import jsonwebtoken from 'jsonwebtoken'
+const { sign } = jsonwebtoken;
+import bcrypt from 'bcrypt'
 
 // add endpoint for POST on /api/auth
 // should receive username and password
-exports.postAuth = async (req, res) => {
+export async function postAuth(req, res) {
 
   let { username, password } = req.body
   try {
-   
-    const user = await db.utils.login({username, password})
+
+    const user = await db.utils.login({ username, password })
 
     if (!user)
       return res.status(401).json({ message: 'Authentication failed' })
 
     function sendToken() {
-      const token = jwt.sign({
+      const token = sign({
         username: user.username,
         name: user.name,
         id: user.key,
