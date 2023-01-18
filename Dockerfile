@@ -6,4 +6,3 @@ RUN apt update
 RUN apt-get -y install default-jdk
 RUN yarn install
 CMD ["yarn", "start"]
-EXPOSE 8080
